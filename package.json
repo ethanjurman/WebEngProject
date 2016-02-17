@@ -1,0 +1,46 @@
+{
+  "name": "webengproject",
+  "version": "1.0.0",
+  "description": "The Greatest",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ethanjurman/WebEngProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ethanjurman/WebEngProject/issues"
+  },
+  "homepage": "https://github.com/ethanjurman/WebEngProject#readme",
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babelify": "^7.2.0",
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "mkdirp": "^0.5.1",
+    "react": "^0.14.7"
+  },
+  "browserify": {
+    "extension": [
+      "jsx"
+    ],
+    "transform": [
+      "babelify"
+    ]
+  },
+  "scripts": {
+    "prebuild:js": "mkdirp dist/client/js",
+    "build:js": "browserify src/client/js/main.jsx -t babelify -o dist/client/js/main.js",
+    "build:client": "npm run build:js & npm run build:html & npm run build:css & npm run build:favicon",
+    "build:favicon": "copyfiles -f ./logo/favicon.png dist/client",
+    "prebuild:server": "mkdirp dist",
+    "build:server": "babel src/server/server.js -o dist/server.js",
+    "build:css": "copyfiles -f ./src/client/css/styles.css dist/client/css",
+    "build:html": "copyfiles -f ./src/client/index.html dist/client",
+    "build": "npm run build:server & npm run build:client",
+    "postbuild": "copyfiles api_key dist",
+    "prestart": "npm run build",
+    "start": "node dist/server.js"
+  }
+}
