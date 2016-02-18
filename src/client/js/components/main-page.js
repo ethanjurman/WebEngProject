@@ -1,25 +1,34 @@
 // main-page.js
 import React, { Component } from 'react';
+import List from './list';
 
-export class MainPage extends Component {
+export default class MainPage extends Component {
   constructor(props) {
     super(props);
+    // this component has state text
     this.state = {
       text:""
     }
   }
 
   componentDidMount() {
-    this.setState({text:"Hello World"})
-    // gets called once (when the component is loaded properly)
+    // gets called once when the component is properly loaded on the page
+
+    // to change state of this instance, call this.setState({stateKey:stateValue})
+    this.setState({text:"Hello World"});
   }
 
   render() {
-    // gets called every time state is updated
     return (
       <div>
-        {this.state.text}
-        <a href="/list.html"> link </a>
+        <div className="title">
+          {/*
+            This is a section of javascript code executed on render
+            which gets updated on when the state and props get updated
+          */}
+          {this.state.text}
+        </div>
+        <List array={["Weather","Chat","Stocks","Facebook"]} title="The List:"/>
       </div>
     )
   }

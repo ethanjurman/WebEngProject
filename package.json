@@ -44,9 +44,8 @@
     "build:css": "copyfiles -f ./src/client/css/styles.css dist/client/css",
     "build:html": "copyfiles -f ./src/client/*.html dist/client",
     "build": "npm run build:server & npm run build:client",
-    "prestart": "npm run build",
-    "start": "node dist/server.js",
-    "watch": "npm run build:client & onchange \"src/client/**/*\" -- npm run build:client",
-    "dev": "parallelshell \"npm run watch\" \"npm run start\""
+    "preserver": "npm run build",
+    "server": "node dist/server.js",
+    "watch": "npm run build:client & onchange \"src/client/**/*\" -- npm run build:client"
   }
 }
