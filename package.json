@@ -14,16 +14,21 @@
   },
   "homepage": "https://github.com/ethanjurman/WebEngProject#readme",
   "dependencies": {
-    "babel": "^6.5.2",
-    "babelify": "^7.2.0",
+    "babel": "^5.8.35",
+    "babelify": "^6.4.0",
     "body-parser": "^1.15.0",
+    "browserify": "^13.0.0",
+    "copyfiles": "^0.2.1",
     "express": "^4.13.4",
     "mkdirp": "^0.5.1",
-    "react": "^0.14.7"
+    "onchange": "^2.0.0",
+    "parallelshell": "^2.0.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
   },
   "browserify": {
     "extension": [
-      "jsx"
+      "js"
     ],
     "transform": [
       "babelify"
@@ -31,16 +36,17 @@
   },
   "scripts": {
     "prebuild:js": "mkdirp dist/client/js",
-    "build:js": "browserify src/client/js/main.jsx -t babelify -o dist/client/js/main.js",
-    "build:client": "npm run build:js & npm run build:html & npm run build:css & npm run build:favicon",
-    "build:favicon": "copyfiles -f ./logo/favicon.png dist/client",
+    "build:js": "browserify src/client/js/main.js -t babelify -o dist/client/js/main.js",
+    "build:client": "npm run build:js & npm run build:html & npm run build:css",
+    "postbuild:client": "echo watching for changes",
     "prebuild:server": "mkdirp dist",
     "build:server": "babel src/server/server.js -o dist/server.js",
     "build:css": "copyfiles -f ./src/client/css/styles.css dist/client/css",
-    "build:html": "copyfiles -f ./src/client/index.html dist/client",
+    "build:html": "copyfiles -f ./src/client/*.html dist/client",
     "build": "npm run build:server & npm run build:client",
-    "postbuild": "copyfiles api_key dist",
     "prestart": "npm run build",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "watch": "npm run build:client & onchange \"src/client/**/*\" -- npm run build:client",
+    "dev": "parallelshell \"npm run watch\" \"npm run start\""
   }
 }
