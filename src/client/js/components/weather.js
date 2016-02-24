@@ -10,7 +10,7 @@ export default class WeatherComponent extends Component {
   }
 
   // kelvin to fahrenheit
-  k2f(kelvin,sigfigs){
+  convertKelvinToFarhenheit(kelvin,sigfigs){
     return ((kelvin - 273.15)*1.8000 + 32).toFixed(sigfigs);
   }
 
@@ -28,7 +28,9 @@ export default class WeatherComponent extends Component {
           }
         }, (error, response, body) => {
           const weatherObj = JSON.parse(body);
-          this.setState({temp:this.k2f(weatherObj.main.temp,0)})
+          this.setState({
+            temp:this.convertKelvinToFarhenheit(weatherObj.main.temp,0)
+          });
         });
 
       },

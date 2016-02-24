@@ -43,7 +43,7 @@
     "postbuild:server": "copyfiles -f ./keys/* dist",
     "postbuild:client": "echo watching for changes",
     "prebuild:server": "mkdirp dist",
-    "build:server": "babel src/server/server.js -o dist/server.js",
+    "build:server": "babel src/server/server.js -o dist/server.js & babel src/server/apis.js -o dist/apis.js",
     "build:css": "copyfiles -f ./src/client/css/styles.css dist/client/css",
     "build:html": "copyfiles -f ./src/client/*.html dist/client",
     "build": "npm run build:server & npm run build:client",
