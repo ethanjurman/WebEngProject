@@ -5,6 +5,9 @@ Comic Sans Enterprise Edition
 Install `npm` (`v2.14`) and `node` (`v4.2`)
 `npm install`
 
+for running various API's make a directory `keys/` and place in it:
+`weather-key` - key for http://api.openweathermap.org/
+
 ### run client
 `npm run watch` (will update on file changes)
 ### run server

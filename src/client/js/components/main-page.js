@@ -1,6 +1,7 @@
 // main-page.js
 import React, { Component } from 'react';
 import List from './list';
+import WeatherComponent from './weather';
 
 export default class MainPage extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ export default class MainPage extends Component {
           {this.state.text}
         </div>
         <List array={["Weather","Chat","Stocks","Facebook"]} title="The List:"/>
+        <WeatherComponent />
       </div>
     )
   }
