@@ -12,3 +12,7 @@ fs.readFile(__dirname + '/weather-key', (err, data) => {
 export function getWeatherUrl(lat, lng){
   return `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${weatherKey}`;
 }
+
+export function getStockUrl(nse) {
+  return `http://www.google.com/finance/info?q=${nse}`;
+}
