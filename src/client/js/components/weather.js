@@ -9,7 +9,6 @@ export default class WeatherComponent extends Component {
     }
   }
 
-  // kelvin to fahrenheit
   convertKelvinToFarhenheit(kelvin,sigfigs){
     return ((kelvin - 273.15)*1.8000 + 32).toFixed(sigfigs);
   }
