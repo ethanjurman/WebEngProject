@@ -14,5 +14,5 @@ export function getWeatherUrl(lat, lng){
 }
 
 export function getStockUrl(nse) {
-  return `http://www.google.com/finance/info?q=${nse}`;
+  return `http://dev.markitondemand.com/MODApis/Api/v2/Quote/jsonp?symbol=${nse}`;
 }
