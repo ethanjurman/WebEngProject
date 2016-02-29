@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import List from './list';
 import WeatherComponent from './weather';
+import StockComponent from './stock';
 
 export default class MainPage extends Component {
   constructor(props) {
