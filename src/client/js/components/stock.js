@@ -35,11 +35,11 @@ export default class StockComponent extends Component {
 
   setStockState(stockObj) {
     this.setState({
-      lastPrice:stockObj.main.LastPrice,
-      dayLow:stockObj.main.Low,
-      dayHigh:stockObj.main.High,
-      dayOpen:stockObj.main.Open,
-      change:stockObj.main.Change
+      lastPrice:stockObj.LastPrice,
+      dayLow:stockObj.Low,
+      dayHigh:stockObj.High,
+      dayOpen:stockObj.Open,
+      change:stockObj.Change
     });
   }
 
