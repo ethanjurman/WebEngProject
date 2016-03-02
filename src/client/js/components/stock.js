@@ -5,18 +5,16 @@ export default class StockComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lastPrice: null,
-      dayLow: null,
-      dayHigh: null,
-      dayOpen: null,
-      change: null
+      stocks: []
     }
   }
 
   componentDidMount() {
     //Not sure how we're going to pass the stock info here
-    var nse = "GOOG";
-    this.makeRequest(nse);
+    var nseArray = ["GOOG", "AAPL", "YHOO", "AMZN", "MSFT"];
+    for (var i = 0; i < nseArray.length; i++) {
+        this.makeRequest(nseArray[i]);
+    }
   }
 
   makeRequest(nse) {
@@ -27,26 +25,31 @@ export default class StockComponent extends Component {
             'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
           }
         }, (error, response, body) => {
-          const stockObj = JSON.parse(body);
+          const stockJson = JSON.parse(body);
+          var stockObj = {
+            lastPrice: stockJson.LastPrice,
+            dayLow: stockJson.Low,
+            dayHigh: stockJson.High,
+            dayOpen: stockJson.Open,
+            change: stockJson.Change
+          };
           this.setStockState(stockObj);
         });
   }
 
   setStockState(stockObj) {
+    var stocks = this.state.stocks;
+    stocks.push(stockObj);
     this.setState({
-      lastPrice:stockObj.LastPrice,
-      dayLow:stockObj.Low,
-      dayHigh:stockObj.High,
-      dayOpen:stockObj.Open,
-      change:stockObj.Change
+      stocks: stocks
     });
   }
 
   render() {
-    //Not sure relaly how to pass proper HTML into here
+    //Do what you need to make it look nice
     return (
       <div>
-        Current Price: {this.state.lastPrice} {this.state.change}
+        Current Price: {this.state.stocks[0].lastPrice}
       </div>
     )
   }
