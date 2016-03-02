@@ -31,7 +31,7 @@ export default class MainPage extends Component {
           {this.state.text}
         </div>
         <List array={["Weather","Chat","Stocks","Facebook"]} title="The List:"/>
-        <StockComonent />
+        <StockComponent />
         <WeatherComponent />
       </div>
     )

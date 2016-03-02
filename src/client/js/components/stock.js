@@ -29,7 +29,7 @@ export default class StockComponent extends Component {
           }
         }, (error, response, body) => {
           const stockObj = JSON.parse(body);
-          return stockObj
+          setStockState(stockObj);
         });
   }
 
@@ -47,7 +47,7 @@ export default class StockComponent extends Component {
     //Not sure relaly how to pass proper HTML into here
     return (
       <div>
-        Current Price: {this.state.lastPrice} {this.state.change} //Change to red/green based on pos/neg?
+        Current Price: {this.state.lastPrice} {this.state.change}
       </div>
     )
   }
