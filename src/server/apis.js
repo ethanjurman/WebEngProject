@@ -14,5 +14,5 @@ export function getWeatherUrl(lat, lng){
 }
 
 export function getStockUrl(nse) {
-  return `http://dev.markitondemand.com/MODApis/Api/v2/Quote/jsonp?symbol=${nse}`;
+  return `http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=${nse}`;
 }

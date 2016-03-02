@@ -47,10 +47,7 @@ export default class StockComponent extends Component {
     //Not sure relaly how to pass proper HTML into here
     return (
       <div>
-        Current Price: {this.state.lastPrice} (this.state.change) //Change to red/green based on pos/neg?
-        //Daily Low: {this.state.dayLow}
-        //Daily High: {this.state.dayHigh}
-        //Open: {this.state.dayOpen}
+        Current Price: {this.state.lastPrice} {this.state.change} //Change to red/green based on pos/neg?
       </div>
     )
   }

@@ -25,7 +25,7 @@ app.get("/weather/:lat/:lng", (req, res) => {
   });
 });
 
-app.get("/stock/:nse", (nse) => {
+app.get("/stock/:nse", (req, res) => {
   const {nse} = req.params;
   request({
     url: getStockUrl(nse),
@@ -34,7 +34,7 @@ app.get("/stock/:nse", (nse) => {
       'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
     }
   }, (error, response, body) => {
-    res.send(JSON.parse(body));
+    res.send(body);
   });
 });
 
