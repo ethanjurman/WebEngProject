@@ -16,8 +16,7 @@ export default class StockComponent extends Component {
   componentDidMount() {
     //Not sure how we're going to pass the stock info here
     var nse = "GOOG";
-    stockObj = this.makeRequest(nse);
-    setStockState(stockObj);
+    this.makeRequest(nse);
   }
 
   makeRequest(nse) {
@@ -29,7 +28,7 @@ export default class StockComponent extends Component {
           }
         }, (error, response, body) => {
           const stockObj = JSON.parse(body);
-          setStockState(stockObj);
+          this.setStockState(stockObj);
         });
   }
 
