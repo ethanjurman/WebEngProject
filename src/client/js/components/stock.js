@@ -27,6 +27,7 @@ export default class StockComponent extends Component {
         }, (error, response, body) => {
           const stockJson = JSON.parse(body);
           var stockObj = {
+            stockName: stockJson.Name,
             lastPrice: stockJson.LastPrice,
             dayLow: stockJson.Low,
             dayHigh: stockJson.High,
@@ -47,9 +48,12 @@ export default class StockComponent extends Component {
 
   render() {
     //Do what you need to make it look nice
+    //It might be wise to hide this until all calls have been made because the
+    //  user might see it build from 1 to 5 elements in like half a second and
+    //  that would be awkward. 
     return (
       <div>
-        Current Price: {this.state.stocks[0].lastPrice}
+        :REPLACEME:
       </div>
     )
   }
