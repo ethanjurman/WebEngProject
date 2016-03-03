@@ -37,7 +37,7 @@ export default class StockGraphComponent extends Component {
   }
 
   fixDate(date) {
-    var dat = new Date(dateIn);
+    var dat = new Date(date);
     return Date.UTC(dat.getFullYear(), dat.getMonth(), dat.getDate());
   }
 
@@ -49,7 +49,7 @@ export default class StockGraphComponent extends Component {
     if (elements[1]){
 
       for (var i = 0, datLen = dates.length; i < datLen; i++) {
-          var dat = this._fixDate( dates[i] );
+          var dat = this.fixDate( dates[i] );
           var pointData = [
               dat,
               elements[1].DataSeries['volume'].values[i]
@@ -64,11 +64,9 @@ export default class StockGraphComponent extends Component {
     var dates = stockObj.Dates || [];
     var elements = stockObj.Elements || [];
     var chartSeries = [];
-
     if (elements[0]){
-
         for (var i = 0, datLen = dates.length; i < datLen; i++) {
-            var dat = this._fixDate( dates[i] );
+            var dat = this.fixDate( dates[i] );
             var pointData = [
                 dat,
                 elements[0].DataSeries['open'].values[i],
@@ -85,7 +83,6 @@ export default class StockGraphComponent extends Component {
   generateMapConfig(stockObj) {
     var ohlc = this.getOHLC(stockObj);
     var volume = this.getVolume(stockObj);
-    console.log("Title: " + stockObj.symbol);
 
     var groupingUnits = [[
       'week',
@@ -101,7 +98,7 @@ export default class StockGraphComponent extends Component {
       },
 
       title: {
-        text: stockObj.symbol + ' Historical Price'
+        text: stockObj.Elements[1].Symbol + ' Historical Price'
       },
 
       yAxis: [{
@@ -122,7 +119,7 @@ export default class StockGraphComponent extends Component {
 
       series: [{
         type: 'candlestick',
-        name: stockObj.symbol,
+        name: stockObj.Elements[1].Symbol,
         data: ohlc,
         dataGrouping: {
           units: groupingUnits
@@ -152,11 +149,9 @@ export default class StockGraphComponent extends Component {
           url: `stockChart/${params}`,
           method: 'GET',
         }, (error, response, body) => {
-          console.log(error);
-          console.log(response);
-          console.log("body" + body);
+          const stockJson = JSON.parse(body);
           this.setState({
-            stockData: this.generateMapConfig(body)
+            stockData: this.generateMapConfig(stockJson)
           });
         });
   }
