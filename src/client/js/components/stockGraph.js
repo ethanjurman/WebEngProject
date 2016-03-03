@@ -15,10 +15,7 @@ export default class StockGraphComponent extends Component {
 
   componentDidMount() {
     //Not sure how we're going to pass the stock info here
-    var params = {
-      parameters: JSON.stringify( this.generateParams() )
-    }
-    this.makeRequest(params);
+    this.makeRequest(this.generateParams());
   }
 
   generateParams(){
@@ -154,9 +151,6 @@ export default class StockGraphComponent extends Component {
     request({
           url: `stockChart/${params}`,
           method: 'GET',
-          headers: {
-            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
-          }
         }, (error, response, body) => {
           console.log(error);
           console.log(response);

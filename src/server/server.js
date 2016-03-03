@@ -39,9 +39,8 @@ app.get("/stock/:nse", (req, res) => {
 });
 
 app.get("/stockChart/:params", (req, res) => {
-  const {params} = encodeURIComponent(req.params);
   request({
-    url: getStockChartUrl(params),
+    url: getStockChartUrl(req.params.params),
     method: 'GET',
   }, (error, response, body) => {
     res.send(body);
