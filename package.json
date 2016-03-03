@@ -23,12 +23,15 @@
     "cors": "^2.7.1",
     "express": "^4.13.4",
     "highcharts": "^4.2.3",
+    "highcharts-more": "^0.1.2",
+    "highstock-browserify": "^1.0.6",
     "mkdirp": "^0.5.1",
     "onchange": "^2.0.0",
     "parallelshell": "^2.0.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-highcharts": "^8.0.2"
+    "react-highcharts": "^8.0.2",
+    "react-highstock": "^1.0.2"
   },
   "browserify": {
     "extension": [

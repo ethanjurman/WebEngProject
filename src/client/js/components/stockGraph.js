@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import request from 'ajax-request';
 
-import Highcharts from 'highcharts';
-import ReactHighcharts from 'react-highcharts';
+var Highstock = require('react-highstock');
 
 export default class StockGraphComponent extends Component {
   constructor(props) {
@@ -86,6 +85,7 @@ export default class StockGraphComponent extends Component {
   generateMapConfig(stockObj) {
     var ohlc = this.getOHLC(stockObj);
     var volume = this.getVolume(stockObj);
+    console.log("Title: " + stockObj.symbol);
 
     var groupingUnits = [[
       'week',
@@ -167,7 +167,7 @@ export default class StockGraphComponent extends Component {
     }
     return (
       <div>
-        <ReactHighcharts config = {this.state.stockData}></ReactHighcharts>
+        <Highstock config = {this.state.stockData}></Highstock>
       </div>
     )
   }
