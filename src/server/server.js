@@ -38,6 +38,19 @@ app.get("/stock/:nse", (req, res) => {
   });
 });
 
+app.get("/stockChart/:params", (req, res) => {
+  const {params} = req.params;
+  request({
+    url: getStockChartUrl(params),
+    method: 'GET',
+    headers: {
+      'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+    }
+  }, (error, response, body) => {
+    res.send(body);
+  });
+});
+
 app.listen(3000, ()=>{
   console.log("listening on port 3000")
 });
