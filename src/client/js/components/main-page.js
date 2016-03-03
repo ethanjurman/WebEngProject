@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { WeatherPeek } from './weather';
 import { CalendarPeek } from './calendar';
-import StockComponent from './stock';
+import { StockPeek } from './stock';
 import { browserHistory } from 'react-router';
 
 export default class MainPage extends Component {
@@ -15,7 +15,7 @@ export default class MainPage extends Component {
       <div>
         <WeatherPeek history={browserHistory} />
         <CalendarPeek history={browserHistory } />
-        <StockComponent />
+        <StockPeek history={browserHistory} />
       </div>
     )
   }

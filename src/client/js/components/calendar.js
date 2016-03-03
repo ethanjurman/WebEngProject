@@ -25,7 +25,7 @@ export class CalendarPeek extends Component {
     else if (date % 10 == 3) {
       postfix = "rd";
     }
-    return (<div><span>{date}</span><sup>{postfix}</sup></div>);
+    return (<span>{date}<sup>{postfix}</sup></span>);
 
   }
 
@@ -42,7 +42,7 @@ export class CalendarPeek extends Component {
   render() {
     return (
       <Paper style={{margin:'10px'}}>
-        <CardTitle style={{fontSize: '2.5em', float:'right'}}> {this.state.date} </CardTitle>
+        <CardTitle style={{fontSize: '2em', float:'right'}}> {this.state.month} {this.state.date} </CardTitle>
         <CardTitle style={{fontSize: '2.5em', marginBottom:'10px'}}> No Events </CardTitle>
         <FlatButton
           label="See Calendar Details"
