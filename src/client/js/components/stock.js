@@ -48,7 +48,6 @@ export class StockPeek extends Component {
 
   render() {
     const stocks = this.state.stocks.map((stock)=>{
-      console.log(stock);
       return (<CardText key={stock.symbol} style={{fontSize:'2em'}}>
         {stock.symbol}: {stock.lastPrice} ({stock.change.toFixed(2)})
       </CardText>);
@@ -60,7 +59,7 @@ export class StockPeek extends Component {
           label="See Stock Details"
           linkButton={true}
           secondary={true}
-          onClick={()=>{this.props.history.push("/calendar")}}
+          onClick={()=>{this.props.history.push("/stock")}}
           style={{float:'right'}}
         />
         <CardText> from markitondemand.com </CardText>

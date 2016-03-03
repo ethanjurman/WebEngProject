@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
+import { browserHistory } from 'react-router';
 import { Paper, CardTitle, CardText, FontIcon, FlatButton } from 'material-ui';
 
 BigCalendar.momentLocalizer(moment);
@@ -12,6 +13,10 @@ export class CalendarPeek extends Component {
       date: null,
       month: null
     }
+  }
+
+  contextTypes: {
+    router: React.PropTypes.func
   }
 
   getDatePostfix(date) {
@@ -48,7 +53,7 @@ export class CalendarPeek extends Component {
           label="See Calendar Details"
           linkButton={true}
           secondary={true}
-          onClick={()=>{this.props.history.push("/calendar")}}
+          onClick={()=>{browserHistory.push('/calendar')}}
           style={{float:'right'}}
         />
         <CardText> for {this.state.month} </CardText>
@@ -58,20 +63,28 @@ export class CalendarPeek extends Component {
   }
 }
 
-export default class CalendarPage extends Component {
+export class CalendarPage extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <div style={{height:'300px'}}>
+      <Paper style={{height:'800px', padding:'10px', margin:'10px'}}>
+        <FlatButton
+          label="Back to Home"
+          linkButton={true}
+          secondary={true}
+          onClick={()=>{browserHistory.push('/')}}
+        />
         <BigCalendar
           events={[]}
           startAccessor='startDate'
           endAccessor='endDate'
         />
-      </div>
+      </Paper>
     )
   }
 }
+
+export default CalendarPeek;
