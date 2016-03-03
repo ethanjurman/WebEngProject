@@ -24,7 +24,7 @@ export default class StockGraphComponent extends Component {
   generateParams(){
     return {
         Normalized: false,
-        NumberOfDays: 3650,
+        NumberOfDays: 365,
         DataPeriod: "Day",
         Elements: [
             {
@@ -149,11 +149,18 @@ export default class StockGraphComponent extends Component {
   }
 
   makeRequest(params) {
+    params = JSON.stringify(params);
+    params = encodeURIComponent(params);
     request({
-          url: "http://dev.markitondemand.com/Api/v2/InteractiveChart/json",
+          url: `stockChart/${params}`,
           method: 'GET',
-          data: params
+          headers: {
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
         }, (error, response, body) => {
+          console.log(error);
+          console.log(response);
+          console.log("body" + body);
           this.setState({
             stockData: this.generateMapConfig(body)
           });
