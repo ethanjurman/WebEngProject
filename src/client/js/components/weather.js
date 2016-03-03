@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import request from 'ajax-request';
+import { Paper, CardTitle, CardText, FontIcon, FlatButton } from 'material-ui';
 
-export default class WeatherComponent extends Component {
+export class WeatherPeek extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      temp: null
+      temp: null,
+      name: null,
+      weather: null
     }
   }
 
@@ -28,7 +31,9 @@ export default class WeatherComponent extends Component {
         }, (error, response, body) => {
           const weatherObj = JSON.parse(body);
           this.setState({
-            temp:this.convertKelvinToFarhenheit(weatherObj.main.temp,0)
+            temp:this.convertKelvinToFarhenheit(weatherObj.main.temp,0),
+            name: weatherObj.name,
+            weather: weatherObj.weather[0].description
           });
         });
 
@@ -41,9 +46,21 @@ export default class WeatherComponent extends Component {
 
   render() {
     return (
-      <div>
-        The temperture outside is: {this.state.temp}°F!
-      </div>
+      <Paper style={{margin:'10px'}}>
+        <CardTitle style={{fontSize: '2.5em', float:'right'}}> {this.state.temp}°F </CardTitle>
+        <CardTitle style={{fontSize: '2.5em'}}> {this.state.weather} </CardTitle>
+        <FlatButton
+          label="See Weather Details"
+          linkButton={true}
+          secondary={true}
+          onClick={()=>{}}
+          style={{float:'right'}}
+        />
+        <CardText> from {this.state.name} </CardText>
+
+      </Paper>
     )
   }
 }
+
+export default WeatherPeek;
