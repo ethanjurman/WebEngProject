@@ -24,7 +24,8 @@ export default class StockGraphComponent extends Component {
         DataPeriod: "Day",
         Elements: [
             {
-                Symbol: "GOOG",
+                Symbol: "GOOG", //This decides what stock the graph is generated for. Should be a variable, not static. 
+                                //  Change when you put everything together
                 Type: "price",
                 Params: ["ohlc"] //ohlc, c = close only
             },
