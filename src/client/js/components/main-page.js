@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import List from './list';
 import WeatherComponent from './weather';
-import LoginPage from './login-page';
+import StockComponent from './stock';
+import StockGraphComponent from './stockGraph';
 
 export default class MainPage extends Component {
   constructor(props) {
@@ -30,8 +31,10 @@ export default class MainPage extends Component {
           */}
           {this.state.text}
         </div>
-        <List array={["Weather","Chat","Stocks","Facebook"]} title="The List:"/>
+        <List array={["Weather","Chat","Stocks","Facebook", "StockGrap"]} title="The List:"/>
+        <StockComponent />
         <WeatherComponent />
+        <StockGraphComponent />
       </div>
     )
   }
