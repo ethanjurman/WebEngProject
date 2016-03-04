@@ -13,6 +13,6 @@ injectTapEventPlugin();
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={MainPage}/>
-    <Route path="/calendar" component={CalendarPage}/>
+    <Route path="calendar" component={CalendarPage}/>
   </Router>
 ), document.getElementById("main"));
