@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import request from 'ajax-request';
+import { browserHistory } from 'react-router';
 import { Paper, CardTitle, CardText, FontIcon, FlatButton } from 'material-ui';
 
 export class StockPeek extends Component {
@@ -48,9 +49,16 @@ export class StockPeek extends Component {
 
   render() {
     const stocks = this.state.stocks.map((stock)=>{
-      return (<CardText key={stock.symbol} style={{fontSize:'2em'}}>
-        {stock.symbol}: {stock.lastPrice} ({stock.change.toFixed(2)})
-      </CardText>);
+      return (
+        <FlatButton
+          key={stock.symbol}
+          style={{fontSize:'2em', display:'block'}}
+          linkButton={true}
+          secondary={true}
+          label={`${stock.symbol}: ${stock.lastPrice} (${stock.change.toFixed(2)})`}
+          onClick={()=>{browserHistory.push(`/stocks/${stock.symbol}`)}}
+        />
+      );
     });
     return (
       <Paper style={{margin:'10px'}}>
@@ -59,7 +67,7 @@ export class StockPeek extends Component {
           label="See Stock Details"
           linkButton={true}
           secondary={true}
-          onClick={()=>{this.props.history.push("/stock")}}
+          onClick={()=>{}}
           style={{float:'right'}}
         />
         <CardText> from markitondemand.com </CardText>
