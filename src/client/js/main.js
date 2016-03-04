@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import MainPage from './components/main-page';
+import { CalendarPage } from './components/calendar';
+import { Router, Route, Link, browserHistory } from 'react-router'
 
 // no need to mess with this logic unless we want to make more pages,
 // or have a store component
 
-ReactDOM.render(<MainPage />, document.getElementById("main"));
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
+ReactDOM.render((
+  <Router history={browserHistory}>
+    <Route path="/" component={MainPage}/>
+    <Route path="calendar" component={CalendarPage}/>
+  </Router>
+), document.getElementById("main"));
