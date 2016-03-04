@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import request from 'ajax-request';
+import { Paper } from 'material-ui';
 
 var Highstock = require('react-highstock');
 
@@ -11,26 +12,25 @@ export default class StockGraphComponent extends Component {
     }
   }
 
-
   componentDidMount() {
     //Not sure how we're going to pass the stock info here
-    this.makeRequest(this.generateParams());
+    this.makeRequest(this.generateParams(this.props.params.symbol));
   }
 
-  generateParams(){
+  generateParams(symbol){
     return {
         Normalized: false,
         NumberOfDays: 365,
         DataPeriod: "Day",
         Elements: [
             {
-                Symbol: "GOOG", //This decides what stock the graph is generated for. Should be a variable, not static. 
+                Symbol: symbol, //This decides what stock the graph is generated for. Should be a variable, not static.
                                 //  Change when you put everything together
                 Type: "price",
                 Params: ["ohlc"] //ohlc, c = close only
             },
             {
-                Symbol: "GOOG",
+                Symbol: symbol,
                 Type: "volume"
             }
         ]
@@ -59,7 +59,7 @@ export default class StockGraphComponent extends Component {
       };
     }
     return chartSeries;
-    }
+  }
 
   getOHLC(stockObj) {
     var dates = stockObj.Dates || [];
@@ -145,9 +145,9 @@ export default class StockGraphComponent extends Component {
 
   makeRequest(params) {
     params = JSON.stringify(params);
-    params = encodeURIComponent(params);
+    const encodedParams = encodeURIComponent(params);
     request({
-          url: `stockChart/${params}`,
+          url: `stockChart/${encodedParams}`,
           method: 'GET',
         }, (error, response, body) => {
           const stockJson = JSON.parse(body);
@@ -159,12 +159,12 @@ export default class StockGraphComponent extends Component {
 
   render() {
     if ( !this.state.stockData ) {
-      return <div>Creating graph...</div>
+      return (<div>Creating graph...</div>);
     }
     return (
-      <div>
+      <Paper style={{margin:'10px',padding:'10px'}}>
         <Highstock config = {this.state.stockData}></Highstock>
-      </div>
+      </Paper>
     )
   }
 }

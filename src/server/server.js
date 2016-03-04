@@ -38,7 +38,7 @@ app.get("/stock/:nse", (req, res) => {
   });
 });
 
-app.get("/stockChart/:params", (req, res) => {
+app.get("/stocks/stockChart/:params", (req, res) => {
   request({
     url: getStockChartUrl(req.params.params),
     method: 'GET',

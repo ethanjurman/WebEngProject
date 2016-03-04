@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import MainPage from './components/main-page';
 import { CalendarPage } from './components/calendar';
+import StockGraphComponent from './components/stockGraph';
 import { Router, Route, Link, browserHistory } from 'react-router'
 
 // no need to mess with this logic unless we want to make more pages,
@@ -14,5 +15,6 @@ ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={MainPage}/>
     <Route path="calendar" component={CalendarPage}/>
+    <Route path="stocks/:symbol" component={StockGraphComponent}/>
   </Router>
 ), document.getElementById("main"));
