@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { WeatherPeek } from './weather';
 import { CalendarPeek } from './calendar';
 import { StockPeek } from './stock';
+import StockGraphComponent from './stockGraph';
 
 export default class MainPage extends Component {
   constructor(props) {

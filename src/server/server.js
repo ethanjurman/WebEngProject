@@ -2,7 +2,7 @@ import express from 'express'; // need to server files and handle requests
 import bodyParser from 'body-parser'; // handle json structure
 import cors from 'cors';
 import request from 'ajax-request';
-import { getWeatherUrl, getStockUrl } from './apis';
+import { getWeatherUrl, getStockChartUrl, getStockUrl, } from './apis';
 
 const app = express();
 app.use(bodyParser.json());
@@ -38,9 +38,19 @@ app.get("/stock/:nse", (req, res) => {
   });
 });
 
+app.get("/stockChart/:params", (req, res) => {
+  request({
+    url: getStockChartUrl(req.params.params),
+    method: 'GET',
+  }, (error, response, body) => {
+    res.send(body);
+  });
+});
+
 app.use((req, res, next)=>{
   res.redirect('/');
-})
+});
+
 
 app.listen(3000, ()=>{
   console.log("listening on port 3000")
