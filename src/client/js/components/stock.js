@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import request from 'ajax-request';
+import { browserHistory } from 'react-router';
+import { Paper, CardTitle, CardText, FontIcon, FlatButton } from 'material-ui';
 
-export default class StockComponent extends Component {
+export class StockPeek extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +30,7 @@ export default class StockComponent extends Component {
           const stockJson = JSON.parse(body);
           var stockObj = {
             stockName: stockJson.Name,
+            symbol: stockJson.Symbol,
             lastPrice: stockJson.LastPrice,
             dayLow: stockJson.Low,
             dayHigh: stockJson.High,
@@ -39,22 +42,38 @@ export default class StockComponent extends Component {
   }
 
   setStockState(stockObj) {
-    var stocks = this.state.stocks;
-    stocks.push(stockObj);
     this.setState({
-      stocks: stocks
+      stocks: this.state.stocks.concat(stockObj)
     });
   }
 
   render() {
-    //Do what you need to make it look nice
-    //It might be wise to hide this until all calls have been made because the
-    //  user might see it build from 1 to 5 elements in like half a second and
-    //  that would be awkward. 
+    const stocks = this.state.stocks.map((stock)=>{
+      return (
+        <FlatButton
+          key={stock.symbol}
+          style={{fontSize:'2em', display:'block'}}
+          linkButton={true}
+          secondary={true}
+          label={`${stock.symbol}: ${stock.lastPrice} (${stock.change.toFixed(2)})`}
+          onClick={()=>{browserHistory.push(`/stocks/${stock.symbol}`)}}
+        />
+      );
+    });
     return (
-      <div>
-        :REPLACEME:
-      </div>
+      <Paper style={{margin:'10px'}}>
+        { stocks }
+        <FlatButton
+          label="See Stock Details"
+          linkButton={true}
+          secondary={true}
+          onClick={()=>{}}
+          style={{float:'right'}}
+        />
+        <CardText> from markitondemand.com </CardText>
+      </Paper>
     )
   }
 }
+
+export default StockPeek;

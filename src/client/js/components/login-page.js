@@ -36,20 +36,6 @@ export default class LoginPage extends Component{
 
     }
 
-    onStatusChange(response) {
-      console.log( response );
-      var self = this;
-
-      if( response.status === "connected" ) {
-         FB.api('/me', function(response) {
-            var message = "Welcome " + response.name;
-            self.setState({
-               message: message
-            });
-        });
-      }
-   }
-
    checkLoginState(response) {
       if(response.authResponse) {
 
