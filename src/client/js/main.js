@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import LoginPage from './components/login-page';
 import MainPage from './components/main-page';
 import { CalendarPage } from './components/calendar';
 import StockGraphComponent from './components/stockGraph';
@@ -17,6 +16,5 @@ ReactDOM.render((
     <Route path="/" component={MainPage}/>
     <Route path="calendar" component={CalendarPage}/>
     <Route path="stocks/:symbol" component={StockGraphComponent}/>
-    <Route path="login" component={LoginPage}/>
   </Router>
 ), document.getElementById("main"));

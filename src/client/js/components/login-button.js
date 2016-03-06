@@ -1,16 +1,12 @@
-//login-page.js
-import React, { Component } from 'react';
+// login-button.js
+import React, {Component} from 'react';
+import RaisedButton from 'material-ui/lib/raised-button';
 
-export default class LoginPage extends Component{
+export class LoginButton extends Component{
+
     constructor(props){
         super(props);
-
-        this.state ={
-            message: ""
-        };
     }
-
-
 
     componentDidMount() {
 
@@ -62,8 +58,11 @@ export default class LoginPage extends Component{
     render() {
         return (
             <div>
-                <button className="facebookLogin" onClick={this.click}>Login with Facebook!</button>
+                <RaisedButton label="Login with Facebook!" onTouchTap={this.click} />
             </div>
         )
     }
+
 }
+
+export default LoginButton;
