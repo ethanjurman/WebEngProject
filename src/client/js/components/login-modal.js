@@ -79,7 +79,7 @@ export class LoginModal extends Component{
                     open={this.state.open}>
                 You must log in to continue.
                 </Dialog>
-                <Paper style={{margin:'10px'}}>
+                <Paper style={{margin:'10px', padding:'10px'}}>
                   <CardText> { this.state.name } </CardText>
                   { this.state.fbFeed }
                 </Paper>
