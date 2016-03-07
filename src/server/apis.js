@@ -3,7 +3,7 @@ import fs from 'fs';
 let weatherKey;
 fs.readFile(__dirname + '/weather-key', (err, data) => {
   if (err){
-    const error = "No weather-key provided. Please have weather-key in the keys folder";
+    const error = "No weather-key provided. Please have weather-key in the keys folder, with the correct key string";
     throw error;
   }
   weatherKey = data.toString().trim();

@@ -1,9 +1,8 @@
 //loginButton.js
 import React, {Component} from 'react';
-import Dialog from 'material-ui/lib/dialog';
-import FlatButton from 'material-ui/lib/flat-button';
-import RaisedButton from 'material-ui/lib/raised-button';
+import { Paper, CardText, RaisedButton, FlatButton, Dialog } from 'material-ui';
 import { LoginButton } from './login-button';
+import FacebookPost from './facebook-post';
 
 
 export class LoginModal extends Component{
@@ -16,6 +15,8 @@ export class LoginModal extends Component{
 
         this.state = {
             open: true,
+            fbFeed: '',
+            name: ''
         };
     }
 
@@ -52,6 +53,7 @@ export class LoginModal extends Component{
     };
 
     checkLoginState(response) {
+        console.log(response)
         if(response.authResponse) {
 
         }
@@ -68,26 +70,37 @@ export class LoginModal extends Component{
         }, {scope: 'public_profile, email'});
     }
 
+    buildFeed(feed) {
+      const fbFeed = feed.map((post, index) => {
+        return (<FacebookPost key={index} message={post.message} story={post.story} />);
+      });
+      this.setState({fbFeed})
+    }
+    buildName(name) {
+      this.setState({name})
+    }
+
     render() {
         const actions = [
-            <FlatButton
-                label="OK"
-                primary={true}
-                onTouchTap={this.handleClose}
-            />,
+            <LoginButton
+              onLogIn={this.handleClose.bind(this)} buildFeed={this.buildFeed.bind(this)}
+              buildName={this.buildName.bind(this)}
+              />
         ];
 
         return(
             <div>
-                <RaisedButton label="Login with Facebook!" onTouchTap={this.handleOpen} />
                 <Dialog
                     title="Facebook Login"
                     actions={actions}
                     modal={false}
                     open={this.state.open}>
                 You must log in to continue.
-                <LoginButton />
                 </Dialog>
+                <Paper style={{margin:'10px'}}>
+                  <CardText> { this.state.name } </CardText> 
+                  { this.state.fbFeed }
+                </Paper>
             </div>
         );
     }
