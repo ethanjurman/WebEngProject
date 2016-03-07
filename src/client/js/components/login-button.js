@@ -32,15 +32,6 @@ export class LoginButton extends Component{
 
     }
 
-   checkLoginState(response) {
-      if(response.authResponse) {
-
-      }
-      else {
-
-      }
-   };
-
    onLogout(response){
        this.setState({
            message: ""
@@ -71,7 +62,6 @@ export class LoginButton extends Component{
 
    click() {
        FB.login((response) => {
-         console.log(response);
          if(response.authResponse){
             this.props.onLogIn();
             this.getFeed();

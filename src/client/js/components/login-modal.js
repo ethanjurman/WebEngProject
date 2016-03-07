@@ -52,24 +52,6 @@ export class LoginModal extends Component{
         this.setState({open: false});
     };
 
-    checkLoginState(response) {
-        console.log(response)
-        if(response.authResponse) {
-
-        }
-        else {
-
-        }
-    };
-
-   click() {
-       FB.login(function(response){
-            if(response.authResponse){
-                this.handleClose();
-            }
-        }, {scope: 'public_profile, email'});
-    }
-
     buildFeed(feed) {
       const fbFeed = feed.map((post, index) => {
         return (<FacebookPost key={index} message={post.message} story={post.story} />);
@@ -98,7 +80,7 @@ export class LoginModal extends Component{
                 You must log in to continue.
                 </Dialog>
                 <Paper style={{margin:'10px'}}>
-                  <CardText> { this.state.name } </CardText> 
+                  <CardText> { this.state.name } </CardText>
                   { this.state.fbFeed }
                 </Paper>
             </div>
