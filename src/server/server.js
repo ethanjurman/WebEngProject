@@ -2,7 +2,7 @@ import express from 'express'; // need to server files and handle requests
 import bodyParser from 'body-parser'; // handle json structure
 import cors from 'cors';
 import request from 'ajax-request';
-import { getWeatherUrl, getStockChartUrl, getStockUrl, } from './apis';
+import { getWeatherUrl, getStockChartUrl, getStockUrl } from './apis';
 
 const app = express();
 app.use(bodyParser.json());

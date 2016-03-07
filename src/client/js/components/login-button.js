@@ -32,33 +32,48 @@ export class LoginButton extends Component{
 
     }
 
-   checkLoginState(response) {
-      if(response.authResponse) {
-
-      }
-      else {
-
-      }
-   };
-
    onLogout(response){
        this.setState({
            message: ""
        })
+   };
+
+   getFeed(){
+     FB.api(
+       "/me/feed",
+       (response) => {
+         if (response && !response.error) {
+           this.props.buildFeed(response.data);
+         }
+       }
+     );
+   }
+
+   getName(){
+     FB.api(
+       "/me",
+       (response) => {
+         if (response && !response.error) {
+           this.props.buildName(response.name);
+         }
+       }
+     );
    }
 
    click() {
-       FB.login(function(response){
-           if(response.authResponse){
-
+       FB.login((response) => {
+         if(response.authResponse){
+            this.props.onLogIn();
+            this.getFeed();
+            this.getName();
            }
-       }, {scope: 'public_profile, email'});
+       }, {scope: 'public_profile, email, user_posts'});
    }
 
     render() {
         return (
             <div>
-                <RaisedButton label="Login with Facebook!" onTouchTap={this.click} />
+                <RaisedButton label="Login with Facebook!" onTouchTap={this.click.bind(this)} />
             </div>
         )
     }
