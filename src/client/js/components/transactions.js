@@ -16,14 +16,14 @@ export default class StockGraphComponent extends Component {
     /* REPLACEME */
   }
 
-  makeTransaction(stockName, isBuying, amount) {
+  makeTransaction(stock, isBuying, amount) {
     var cost = calculateCost(stock, amount);
     if (isBuying) {
       /* do I have to set state here? */
-      this.state.transactions.addTransaction(stockName, count, "buy", amount);
+      this.state.transactions.addTransaction(stock['stockName'], count, "buy", amount);
     } else {
       /* do I have to set state here? */
-      this.state.transactions.addTransaction(stockName, count, "sell", amount);
+      this.state.transactions.addTransaction(stock['stockName'], count, "sell", amount);
     }
   }
 
