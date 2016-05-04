@@ -17,6 +17,7 @@
     "ajax-request": "^1.2.1",
     "babel": "^5.8.35",
     "babelify": "^6.4.0",
+    "body-parser": "^1.15.0",
     "browserify": "^13.0.0",
     "copyfiles": "^0.2.1",
     "cors": "^2.7.1",
