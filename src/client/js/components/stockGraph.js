@@ -11,7 +11,6 @@ export default class StockGraphComponent extends Component {
     }
   }
 
-
   componentDidMount() {
     //Not sure how we're going to pass the stock info here
     this.makeRequest(this.generateParams());
