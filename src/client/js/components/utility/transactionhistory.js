@@ -30,7 +30,7 @@ class TransactionHistory {
 
     this.transHistory.push(transaction);
     writeToDB();
-    
+
     return true;
   }
 
@@ -73,7 +73,9 @@ function getTransactionHistory(uID) {
       var transaction = {
         stockName: transHistory[i]['stockName'],
         count: transHistory[i]['count'],
-        date: transHistory[i]['date']
+        date: transHistory[i]['date'],
+        value: transHistory[i]['value'],
+        type: transHistory[i]['type']
       }
       transactions.push(transaction);
   }
