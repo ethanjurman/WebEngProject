@@ -82,6 +82,14 @@ function getTransactionHistory(uID) {
   /*
   grab shit from database
   return some sort of array 'transHistory'
+  that is formatted like
+  transhistory[0] = {
+    stockName: name,
+    count: count,
+    date: date,
+    value: value,
+    type: type
+  }
   */
 
   var transactions = [];
