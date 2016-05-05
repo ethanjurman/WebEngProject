@@ -72,11 +72,7 @@ export class CalendarPage extends Component {
 
     this.state = {
       addEvent: false,
-      events: [{
-        title:"WHAT THE WHAT",
-        start: new Date(),
-        end: new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours() + 1, date.getMinutes())
-      }]
+      events: []
     };
   }
 
