@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import { browserHistory } from 'react-router';
-import { Paper, CardTitle, CardText, FontIcon, FlatButton } from 'material-ui';
+import { Paper, CardTitle, CardText, FontIcon, FlatButton, RaisedButton } from 'material-ui';
+import { AddEvent } from './add-event';
 
 BigCalendar.momentLocalizer(moment);
 
@@ -66,6 +67,25 @@ export class CalendarPeek extends Component {
 export class CalendarPage extends Component {
   constructor(props) {
     super(props);
+
+    const date = new Date();
+
+    this.state = {
+      addEvent: false,
+      events: [{
+        title:"WHAT THE WHAT",
+        start: new Date(),
+        end: new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours() + 1, date.getMinutes())
+      }]
+    };
+  }
+
+  addEventObject(eventObject) {
+    this.setState({ events: this.state.events.concat(eventObject) });
+  }
+
+  toggleDialog() {
+    this.setState({addEvent: !this.state.addEvent});
   }
 
   render() {
@@ -77,11 +97,18 @@ export class CalendarPage extends Component {
           secondary={true}
           onClick={()=>{browserHistory.push('/')}}
         />
-        <BigCalendar
-          events={[]}
-          startAccessor='startDate'
-          endAccessor='endDate'
+        <RaisedButton
+          label="Add Event"
+          secondary={true}
+          onClick={this.toggleDialog.bind(this)}
         />
+        <BigCalendar
+          events={this.state.events}
+        />
+        <AddEvent
+          open={this.state.addEvent}
+          toggleDialog={this.toggleDialog.bind(this)}
+          addEventObject={this.addEventObject.bind(this)}/>
       </Paper>
     )
   }
