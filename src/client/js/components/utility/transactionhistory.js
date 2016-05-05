@@ -83,7 +83,7 @@ function getTransactionHistory(uID) {
   grab shit from database
   return some sort of array 'transHistory'
   that is formatted like
-  transhistory[0] = {
+  transhistory[i] = {
     stockName: name,
     count: count,
     date: date,
