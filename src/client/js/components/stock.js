@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import request from 'ajax-request';
 import { browserHistory } from 'react-router';
 import { Paper, CardTitle, CardText, FontIcon, FlatButton } from 'material-ui';
+import StockHolding from './utility/stockholdings';
 
 export class StockPeek extends Component {
   constructor(props) {
@@ -13,10 +14,27 @@ export class StockPeek extends Component {
 
   componentDidMount() {
     //Not sure how we're going to pass the stock info here
-    var nseArray = ["GOOG", "AAPL", "YHOO", "AMZN", "MSFT"];
-    for (var i = 0; i < nseArray.length; i++) {
+    var uID = 0; //get this somehow
+    const stockHoldings = getStockHoldings(uID);
+    var stocks = stockHoldings.getStocks();
+    var nseArray = shuffle(Object.keys(stocks));
+    for (var i = 0; i < 5; i++) {
         this.makeRequest(nseArray[i]);
     }
+  }
+
+  function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
   }
 
   makeRequest(nse) {

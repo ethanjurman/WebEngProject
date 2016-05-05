@@ -1,5 +1,5 @@
-import Wallet from './utility/Wallet'
-import StockHolding from './utility/stockholdings'
+import Wallet from './utility/Wallet';
+import StockHolding from './utility/stockholdings';
 
 class TransactionHistory {
   constructor(uID, transHistory) {
