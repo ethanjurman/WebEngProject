@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import request from 'ajax-request';
 import { Paper } from 'material-ui';
 
-var Highstock = require('react-highstock');
+// var Highstock = require('react-highstock');
 
 export default class StockGraphComponent extends Component {
   constructor(props) {
@@ -163,7 +163,7 @@ export default class StockGraphComponent extends Component {
     }
     return (
       <Paper style={{margin:'10px',padding:'10px'}}>
-        <Highstock config = {this.state.stockData}></Highstock>
+        {/*<Highstock config = {this.state.stockData}></Highstock>*/}
       </Paper>
     )
   }
