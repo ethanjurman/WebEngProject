@@ -9,7 +9,7 @@ class Wallet {
   }
 
   get funds() {
-    return this.uID();
+    return this.funds();
   }
 
   addFunds(funds) {

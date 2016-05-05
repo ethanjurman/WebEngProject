@@ -1,4 +1,5 @@
 import Wallet from './utility/Wallet'
+import StockHolding from './utility/stockholdings'
 
 class TransactionHistory {
   constructor(uID, transHistory) {
@@ -15,11 +16,14 @@ class TransactionHistory {
   }
 
   addTransaction(stockName, count, type, value) {
-    if !(dealWithFunds(this.uID, type, value) {
+    var successfulTransaction = updateWallet(this.uID, type, value) &&
+        updateStockCount(uID, type, count, stockName);
+
+    if !(successfulTransaction) {
       return false;
     }
-    var currentDate = getToday();
 
+    var currentDate = getToday();
     var transaction = {
       stockName: stockName,
       count: count,
@@ -30,7 +34,6 @@ class TransactionHistory {
 
     this.transHistory.push(transaction);
     writeToDB();
-
     return true;
   }
 
@@ -43,8 +46,21 @@ class TransactionHistory {
     return currentDate;
   }
 
-  dealWithFunds(uID, type, value) {
-    const wallet = getWallet();
+  updateStockCount(uID, type, count, stockName) {
+    const stocks = getStockHoldings(uID);
+
+    if (type == "buy") {
+      stocks.updateStock(stockName, count, true);
+      return true;
+    } else if (type == 'sell') {
+      stocks.updateStock(stockName, count, false);
+      return true;
+    }
+    return false;
+  }
+
+  updateWallet(uID, type, value) {
+    const wallet = getWallet(uID);
 
     if (type == "buy") {
       wallet.removeFunds(value);
