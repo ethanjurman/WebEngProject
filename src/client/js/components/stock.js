@@ -23,7 +23,7 @@ export class StockPeek extends Component {
     }
   }
 
-  function shuffle(array) {
+  shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
     while (0 !== currentIndex) {

@@ -5,11 +5,11 @@ class StockHolding {
   }
 
   get uID() {
-    return this.uID();
+    return this.uID;
   }
 
   get stocks() {
-    return this.stocks();
+    return this.stocks;
   }
 
   updateStock(stockName, count, isAdding) {
@@ -32,14 +32,13 @@ class StockHolding {
     writeToDB();
   }
 
-
   writeToDB() {
     /* REPLACEME */
     return false;
   }
 }
 
-getStockHoldings(uID) {
+function getStockHoldings(uID) {
   /*
   grab shit from database
   get funds
@@ -47,7 +46,9 @@ getStockHoldings(uID) {
   // I'm no JS wizard but what we want to do is dybamically create a
   // stockobject that is in format:
   // var stocks = {
-  //   stockName: count
+  //   stockName0: count,
+  //   stockName1: count,
+  //   etc...
   // }
   const stockHolding = new StockHolding(uID, stocks);
   return stockHolding;

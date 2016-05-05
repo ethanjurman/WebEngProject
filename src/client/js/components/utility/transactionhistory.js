@@ -8,11 +8,11 @@ class TransactionHistory {
   }
 
   get uID() {
-    return this.uID();
+    return this.uID;
   }
 
   get transHistory() {
-    return this.transHistory();
+    return this.transHistory;
   }
 
   addTransaction(stockName, count, type, value) {
@@ -33,14 +33,14 @@ class TransactionHistory {
     }
 
     this.transHistory.push(transaction);
-    writeToDB();
+    this.writeToDB();
     return true;
   }
 
   getToday() {
     var currentDate = new Date();
     var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
+    var mm = today.getMonth()+1;
     var yyyy = today.getFullYear();
     currentDate = mm+'/'+dd+'/'+yyyy;
     return currentDate;

@@ -5,11 +5,11 @@ class Wallet {
   }
 
   get uID() {
-    return this.uID();
+    return this.uID;
   }
 
   get funds() {
-    return this.funds();
+    return this.funds;
   }
 
   addFunds(funds) {
@@ -28,7 +28,7 @@ class Wallet {
   }
 }
 
-getWallet(uID) {
+function getWallet(uID) {
   /*
   grab shit from database
   get funds
