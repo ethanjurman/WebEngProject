@@ -1,20 +1,15 @@
-//loginButton.js
 import React, {Component} from 'react';
 import { Paper, CardText, RaisedButton, FlatButton, Dialog } from 'material-ui';
-import { LoginButton } from './login-button';
 import FacebookPost from './facebook-post';
 
+export class FacebookFeed extends Component{
 
-export class LoginModal extends Component{
     constructor(props){
         super(props);
 
         this.setState = this.setState.bind(this);
-        this.handleOpen = this.handleOpen.bind(this);
-        this.handleClose = this.handleClose.bind(this);
 
         this.state = {
-            open: true,
             fbFeed: '',
             name: ''
         };
@@ -40,17 +35,7 @@ export class LoginModal extends Component{
             js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=902633069835365";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebood-jssdk'));
-
-
     }
-
-    handleOpen(){
-        this.setState({open: true});
-    };
-
-    handleClose() {
-        this.setState({open: false});
-    };
 
     buildFeed(feed) {
       const fbFeed = feed.map((post, index) => {
@@ -62,31 +47,33 @@ export class LoginModal extends Component{
       this.setState({name})
     }
 
-    function checkLoginState(){
-        FB.getLoginStatus(function(response){
-            if(response.status === 'connected'){
-                this.setState({open: false});
-            }
-        });
+    getFeed(){
+      FB.api(
+        "/me/feed",
+        (response) => {
+          if (response && !response.error) {
+            buildFeed(response.data);
+          }
+        }
+      );
     }
 
-    render() {
-        const actions = [
-            <LoginButton
-              onLogIn={this.handleClose.bind(this)} buildFeed={this.buildFeed.bind(this)}
-              buildName={this.buildName.bind(this)}
-              />
-        ];
+    getName(){
+      FB.api(
+        "/me",
+        (response) => {
+          if (response && !response.error) {
+            buildName(response.name);
+          }
+        }
+      );
+    }
 
+    render(){
+        getFeed();
+        getName();
         return(
             <div>
-                <Dialog
-                    title="Facebook Login"
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}>
-                You must log in to continue.
-                </Dialog>
                 <Paper style={{margin:'10px', padding:'10px'}}>
                   <CardText> { this.state.name } </CardText>
                   { this.state.fbFeed }
@@ -96,4 +83,4 @@ export class LoginModal extends Component{
     }
 }
 
-export default LoginModal;
+export default FacebookFeed;
