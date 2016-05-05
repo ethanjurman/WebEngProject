@@ -14,7 +14,7 @@ export class LoginModal extends Component{
         this.handleClose = this.handleClose.bind(this);
 
         this.state = {
-            open: true,
+            open: false,
             fbFeed: '',
             name: ''
         };
