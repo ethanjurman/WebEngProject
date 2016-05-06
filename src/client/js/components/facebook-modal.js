@@ -5,7 +5,7 @@ import { LoginButton } from './login-button';
 import FacebookPost from './facebook-post';
 
 
-export class LoginModal extends Component{
+export class FacebookModal extends Component{
     constructor(props){
         super(props);
 
@@ -27,8 +27,24 @@ export class LoginModal extends Component{
                 appId: '902633069835365',
                 xfbml: true,
                 version: 'v2.5',
+                status, true,
             });
-        };
+
+            console.log("Hi");
+
+            FB.getLoginStatus(function(response) {
+                //this.statusChangeCallback(response);
+                if(response.status === 'connected'){
+                    this.handleClose();
+                    this.getFeed();
+                    this.getName();
+                }
+            }.bind(this));
+
+            FB.Event.subscribe('auth.statusChange', function(response){
+                this.statusChangeCallback(response);
+            }.bind(this));
+        }.bind(this);
 
         // Load the SDK asynchronously
         ((d, s, id) => {
@@ -37,10 +53,9 @@ export class LoginModal extends Component{
             let js = element;
             if(d.getElementById(id)) {return;}
             js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=902633069835365";
+            js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=902633069835365";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebood-jssdk'));
-
 
     }
 
@@ -58,22 +73,61 @@ export class LoginModal extends Component{
       });
       this.setState({fbFeed})
     }
+
     buildName(name) {
       this.setState({name})
     }
 
-    function checkLoginState(){
+    checkLoginState(){
         FB.getLoginStatus(function(response){
-            if(response.status === 'connected'){
-                this.setState({open: false});
+            this.statusChangeCallback(response);
+        }.bind(this));
+    }
+
+    statusChangeCallback(response){
+        if(response.status === 'connected'){
+            this.handleClose();
+            this.getFeed();
+            this.getName();
+        }
+    }
+
+    getFeed(){
+      FB.api(
+        "/me/feed",
+        (response) => {
+          if (response && !response.error) {
+            this.buildFeed(response.data);
+          }
+        }
+      );
+    }
+
+    getName(){
+      FB.api(
+        "/me",
+        (response) => {
+          if (response && !response.error) {
+            this.buildName(response.name);
+          }
+        }
+      );
+    }
+
+    login(){
+        FB.login((response) => {
+          if(response.authResponse){
+             this.handleClose();
+             this.getFeed();
+             this.getName();
             }
-        });
+        }, {scope: 'public_profile, email, user_posts'});
     }
 
     render() {
         const actions = [
             <LoginButton
-              onLogIn={this.handleClose.bind(this)} buildFeed={this.buildFeed.bind(this)}
+              onLogIn={this.login.bind(this)} buildFeed={this.buildFeed.bind(this)}
               buildName={this.buildName.bind(this)}
               />
         ];
@@ -96,4 +150,4 @@ export class LoginModal extends Component{
     }
 }
 
-export default LoginModal;
+export default FacebookModal;
