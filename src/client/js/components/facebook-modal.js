@@ -32,14 +32,14 @@ export class FacebookModal extends Component{
 
             console.log("Hi");
 
-            FB.getLoginStatus(function(response) {
-                //this.statusChangeCallback(response);
+            /*FB.getLoginStatus(function(response) {
+                this.statusChangeCallback(response);
                 if(response.status === 'connected'){
                     this.handleClose();
                     this.getFeed();
                     this.getName();
                 }
-            }.bind(this));
+            }.bind(this));*/
 
             FB.Event.subscribe('auth.statusChange', function(response){
                 this.statusChangeCallback(response);
@@ -56,6 +56,8 @@ export class FacebookModal extends Component{
             js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=902633069835365";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebood-jssdk'));
+
+        setTimeout(this.getStatus.bind(this), 1000);
 
     }
 
@@ -85,11 +87,7 @@ export class FacebookModal extends Component{
     }
 
     statusChangeCallback(response){
-        if(response.status === 'connected'){
-            this.handleClose();
-            this.getFeed();
-            this.getName();
-        }
+
     }
 
     getFeed(){
@@ -112,6 +110,16 @@ export class FacebookModal extends Component{
           }
         }
       );
+    }
+
+    getStatus(){
+        FB.getLoginStatus(function(response) {
+            if(response.status === 'connected'){
+                this.handleClose();
+                this.getFeed();
+                this.getName();
+            }
+        }.bind(this));
     }
 
     login(){
