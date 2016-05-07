@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import request from 'ajax-request';
 import { browserHistory } from 'react-router';
 import { Paper, CardTitle, CardText, FontIcon, FlatButton } from 'material-ui';
-import StockHolding from './utility/stockholdings';
+import StockHolding from './stockholdings';
 
 export class StockPeek extends Component {
   constructor(props) {

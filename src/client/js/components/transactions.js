@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import request from 'ajax-request';
-import TransactionHistory from './utility/transactionHistory';
+import TransactionHistory, {getTransactionHistory} from './transactionhistory';
 
 export default class Transactions extends Component {
   constructor(props) {
-    var uID = 0; /*how we getting userID? */
+    var uID = 10; /*how we getting userID? */
     const transactions = getTransactionHistory(uID);
     super(props);
     this.state = {
-      transactions: transactions;
+      transactions: transactions
     }
   }
 

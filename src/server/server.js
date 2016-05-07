@@ -52,15 +52,17 @@ transhistory[0] = {
 }
 */
 app.get("/stock/transactions/:uid", (req, res) => {
+  console.log(req.params);
   var transacton = {
     stockName: "MSFT",
     count: 10,
     date: 101,
     value: 666,
-    type: sell
+    type: "sell"
   };
   var transhistory = []
   transhistory[0] = transacton;
+  console.log(transhistory);
   res.send(transhistory);
 });
 
