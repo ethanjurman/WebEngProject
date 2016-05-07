@@ -5,6 +5,7 @@ import { CalendarPeek } from './calendar';
 import { StockPeek } from './stock';
 import { LoginModal } from './login-modal';
 import StockGraphComponent from './stockGraph';
+import Transactions from './transactions';
 
 export default class MainPage extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ export default class MainPage extends Component {
         <CalendarPeek />
         <StockPeek />
         <LoginModal />
+        <Transactions />
       </div>
     )
   }

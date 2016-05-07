@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import request from 'ajax-request';
 import TransactionHistory from './utility/transactionHistory';
 
-export default class StockGraphComponent extends Component {
+export default class Transactions extends Component {
   constructor(props) {
     var uID = 0; /*how we getting userID? */
     const transactions = getTransactionHistory(uID);
@@ -33,8 +33,11 @@ export default class StockGraphComponent extends Component {
   }
 
   render() {
-    /* REPLACEME */
-    return false;
+    return (
+      <div className="commentBox">
+        Hello, world! I am a CommentBox.
+      </div>
+    );
   }
 
 }

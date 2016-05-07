@@ -1,4 +1,4 @@
-class Wallet {
+export class Wallet {
   constructor(uID, funds) {
     this.uID = uID;
     this.funds = funds;

@@ -1,7 +1,7 @@
 import Wallet from './utility/Wallet';
 import StockHolding from './utility/stockholdings';
 
-class TransactionHistory {
+export class TransactionHistory {
   constructor(uID, transHistory) {
     this.uID = uID;
     this.transHistory = transHistory;

@@ -1,4 +1,4 @@
-class StockHolding {
+export class StockHolding {
   constructor(uID, stocks) {
     this.uID = uID;
     this.stocks = stocks;
