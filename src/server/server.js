@@ -52,7 +52,6 @@ transhistory[0] = {
 }
 */
 app.get("/stock/transactions/:uid", (req, res) => {
-  console.log(req.params);
   var transacton = {
     stockName: "MSFT",
     count: 10,
@@ -60,9 +59,8 @@ app.get("/stock/transactions/:uid", (req, res) => {
     value: 666,
     type: "sell"
   };
-  var transhistory = []
+  var transhistory = [];
   transhistory[0] = transacton;
-  console.log(transhistory);
   res.send(transhistory);
 });
 
@@ -76,7 +74,9 @@ app.get("/stock/transactions/:uid", (req, res) => {
 app.get("/stock/holdings/:uid", (req, res) => {
 var stocks = {
   MSFT: 100,
-  AAPL: 22
+  AAPL: 22,
+  AMZN: 402320,
+  TWTR: 1
 }
 res.send(stocks);
 });
@@ -86,7 +86,10 @@ grab shit from database
 get funds
 */
 app.get("/stock/wallet/:uid", (req, res) => {
-res.send(100000);
+var funds = {
+  fund: 1000
+}
+res.send(funds);
 });
 
 app.get("/stocks/stockChart/:params", (req, res) => {

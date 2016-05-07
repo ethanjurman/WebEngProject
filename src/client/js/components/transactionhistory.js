@@ -79,7 +79,6 @@ export class TransactionHistory {
 }
 
 export function getTransactionHistory(uID) {
-  var transHistory = null;
   request({
         url: `stock/transactions/${uID}`,
         method: 'GET',
@@ -88,18 +87,18 @@ export function getTransactionHistory(uID) {
         }
       }, (error, response, body) => {
         var transHistory = body;
+        var transactions = [];
+        for (var i = 0; i < transHistory.length; i++) {
+            var transaction = {
+              stockName: transHistory[i]['stockName'],
+              count: transHistory[i]['count'],
+              date: transHistory[i]['date'],
+              value: transHistory[i]['value'],
+              type: transHistory[i]['type']
+            }
+            transactions.push(transaction);
+        }
+        const history = new TransactionHistory(uID, transactions);
+        return history;
   });
-
-  for (var i = 0; i < transHistory.length; i++) {
-      var transaction = {
-        stockName: transHistory[i]['stockName'],
-        count: transHistory[i]['count'],
-        date: transHistory[i]['date'],
-        value: transHistory[i]['value'],
-        type: transHistory[i]['type']
-      }
-      transactions.push(transaction);
-  }
-  const history = new TransactionHistory(uID, transactions);
-  return history;
 }
