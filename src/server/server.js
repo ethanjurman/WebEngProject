@@ -38,6 +38,55 @@ app.get("/stock/:nse", (req, res) => {
   });
 });
 
+
+/*
+grab shit from database
+return some sort of array 'transHistory'
+that is formatted like
+transhistory[0] = {
+  stockName: name,
+  count: count,
+  date: date,
+  value: value,
+  type: type
+}
+*/
+app.get("/stock/transactions/:uid", (req, res) => {
+  var transacton = {
+    stockName: "MSFT",
+    count: 10,
+    date: 101,
+    value: 666,
+    type: sell
+  };
+  var transhistory = []
+  transhistory[0] = transacton;
+  res.send(transhistory);
+});
+
+// I'm no JS wizard but what we want to do is dybamically create a
+// stockobject/array that is in format:
+// var stocks = {
+//   stockName0: count,
+//   stockName1: count,
+//   etc...
+// }
+app.get("/stock/holdings/:uid", (req, res) => {
+var stocks = {
+  MSFT: 100,
+  AAPL: 22
+}
+res.send(stocks);
+});
+
+/*
+grab shit from database
+get funds
+*/
+app.get("/stock/wallet/:uid", (req, res) => {
+res.send(100000);
+});
+
 app.get("/stocks/stockChart/:params", (req, res) => {
   request({
     url: getStockChartUrl(req.params.params),

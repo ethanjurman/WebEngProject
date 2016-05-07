@@ -29,11 +29,16 @@ class Wallet {
 }
 
 function getWallet(uID) {
-  /*
-  grab shit from database
-  get funds
-  */
-  var funds = 100;
+  var funds = null;
+  request({
+        url: `stock/wallet/${uID}`,
+        method: 'GET',
+        headers: {
+          'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }, (error, response, body) => {
+        funds = body;
+  });
   const wallet = new Wallet(uID, funds);
   return wallet;
 }

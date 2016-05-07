@@ -39,17 +39,16 @@ class StockHolding {
 }
 
 function getStockHoldings(uID) {
-  /*
-  grab shit from database
-  get funds
-  */
-  // I'm no JS wizard but what we want to do is dybamically create a
-  // stockobject that is in format:
-  // var stocks = {
-  //   stockName0: count,
-  //   stockName1: count,
-  //   etc...
-  // }
+  var stocks = null;
+  request({
+        url: `stock/holdings/${uID}`,
+        method: 'GET',
+        headers: {
+          'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }, (error, response, body) => {
+        stocks = body;
+  });
   const stockHolding = new StockHolding(uID, stocks);
   return stockHolding;
 }

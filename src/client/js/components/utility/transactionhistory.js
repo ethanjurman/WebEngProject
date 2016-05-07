@@ -79,20 +79,17 @@ class TransactionHistory {
 }
 
 function getTransactionHistory(uID) {
-  /*
-  grab shit from database
-  return some sort of array 'transHistory'
-  that is formatted like
-  transhistory[0] = {
-    stockName: name,
-    count: count,
-    date: date,
-    value: value,
-    type: type
-  }
-  */
+  var transactions = null;
+  request({
+        url: `stock/transaction/${uID}`,
+        method: 'GET',
+        headers: {
+          'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+      }, (error, response, body) => {
+        var transactions = body;
+  });
 
-  var transactions = [];
   for (var i = 0; i < transHistory.length; i++) {
       var transaction = {
         stockName: transHistory[i]['stockName'],
