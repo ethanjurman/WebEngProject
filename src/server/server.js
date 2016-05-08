@@ -52,18 +52,6 @@ app.get("/stocks/:nse", (req, res) => {
 });
 
 
-/*
-grab shit from database
-return some sort of array 'transHistory'
-that is formatted like
-transhistory[0] = {
-  stockName: name,
-  count: count,
-  date: date,
-  value: value,
-  type: type
-}
-*/
 app.get("/stocks/transactions/:uid", (req, res) => {
   const {uid} =  req.params
   var mysql      = require('mysql');
@@ -73,7 +61,6 @@ app.get("/stocks/transactions/:uid", (req, res) => {
     password : 'iePohthad3',
     database : 'comicsans'
   });
-
 
   connection.connect();
   connection.query('SELECT * FROM `transactions` WHERE `userId` = ?', [uid], function (err, rows, fields) {
@@ -94,30 +81,8 @@ app.get("/stocks/transactions/:uid", (req, res) => {
   });
 
   connection.end();
-
-
-
-
-
-  var transacton = {
-    stockName: "MSFT",
-    count: 10,
-    date: 101,
-    value: 666,
-    type: "sell"
-  };
-  var transhistory = [];
-  transhistory[0] = transacton;
-  // res.send(transhistory);
 });
 
-// I'm no JS wizard but what we want to do is dybamically create a
-// stockobject/array that is in format:
-// var stocks = {
-//   stockName0: count,
-//   stockName1: count,
-//   etc...
-// }
 app.get("/stocks/holdings/:uid", (req, res) => {
   const {uid} =  req.params
   var mysql      = require('mysql');
@@ -149,19 +114,6 @@ app.get("/stocks/holdings/:uid", (req, res) => {
   });
 
   connection.end();
-
-
-
-
-
-
-var stocks = {
-  MSFT: 100,
-  AAPL: 22,
-  AMZN: 402320,
-  TWTR: 1
-}
-// res.send(stocks);
 });
 
 /*
