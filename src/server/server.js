@@ -85,11 +85,8 @@ res.send(stocks);
 grab shit from database
 get funds
 */
-app.get("/stock/wallet/:uid", (req, res) => {
-var funds = {
-  fund: 1000
-}
-res.send(funds);
+app.get("/stocks/wallet/:uid", (req, res) => {
+  res.send("1000");
 });
 
 app.get("/stocks/stockChart/:params", (req, res) => {
@@ -101,9 +98,9 @@ app.get("/stocks/stockChart/:params", (req, res) => {
   });
 });
 
-app.use((req, res, next)=>{
-  res.redirect('/');
-});
+// app.use((req, res, next)=>{
+//   res.redirect('/');
+// });
 
 
 app.listen(3000, ()=>{

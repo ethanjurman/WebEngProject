@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import request from 'ajax-request';
 import { Paper } from 'material-ui';
+import { Wallet, getWallet } from './wallet';
 
 var Highstock = require('react-highstock');
 
@@ -8,13 +9,15 @@ export default class StockGraphComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stockData: null
+      stockData: null,
+      wallet: null
     }
   }
 
   componentDidMount() {
     //Not sure how we're going to pass the stock info here
     this.makeRequest(this.generateParams(this.props.params.symbol));
+    getWallet(0, this.updateWallet.bind(this));
   }
 
   generateParams(symbol){
@@ -157,12 +160,19 @@ export default class StockGraphComponent extends Component {
         });
   }
 
+  updateWallet(wallet) {
+    this.setState({
+      wallet
+    });
+  }
+
   render() {
     if ( !this.state.stockData ) {
       return (<div>Creating graph...</div>);
     }
     return (
       <Paper style={{margin:'10px',padding:'10px'}}>
+        FUNDS: { this.state.wallet.getFunds() }
         {<Highstock config = {this.state.stockData}></Highstock>}
       </Paper>
     )

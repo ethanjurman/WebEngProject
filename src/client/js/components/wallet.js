@@ -16,23 +16,28 @@ export class Wallet {
     writeToDB();
   }
 
+  getFunds() {
+    return this.funds;
+  }
+
   writeToDB() {
     /* REPLACEME */
     return false;
   }
 }
 
-export function getWallet(uID) {
+export function getWallet(uID, callback) {
   var funds = null;
   request({
-        url: `stock/wallet/${uID}`,
+        url: 'wallet/'+uID,
         method: 'GET',
         headers: {
           'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
         }
       }, (error, response, body) => {
         funds = body;
+        const wallet = new Wallet(uID, funds);
+        callback(wallet);
   });
-  const wallet = new Wallet(uID, funds);
-  return wallet;
+
 }
