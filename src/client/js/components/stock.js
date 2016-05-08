@@ -15,7 +15,7 @@ export class StockPeek extends Component {
   componentDidMount() {
     //Not sure how we're going to pass the stock info here
     var uID = 0; //get this somehow
-    const stockHoldings = getStockHoldings(uID);
+    const stockHoldings = getStockHoldings(uID); //this makes some async calls so we need to wait on it
     var stocks = stockHoldings.getStocks();
     var nseArray = this.shuffle(Object.keys(stocks));
     for (var i = 0; i < 5; i++) {
