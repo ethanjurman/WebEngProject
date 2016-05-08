@@ -39,6 +39,9 @@ export class CalendarPeek extends Component {
     const dateObj = new Date;
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+    ga('set', 'page', '/calendar');
+    ga('send', 'pageview');
+
     this.setState({
       date: this.getDatePostfix(dateObj.getDate()),
       month: months[dateObj.getMonth()]
