@@ -65,6 +65,39 @@ transhistory[0] = {
 }
 */
 app.get("/stocks/transactions/:uid", (req, res) => {
+  const {uid} =  req.params
+  var mysql      = require('mysql');
+  var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : 'iePohthad3',
+    database : 'comicsans'
+  });
+
+
+  connection.connect();
+  connection.query('SELECT * FROM `transactions` WHERE `userId` = ?', [uid], function (error, results, fields) {
+    if (err) throw err;
+    //res.send(rows[0].solution);
+    var transactions = [];
+    for (i = 0; i < rows.length; i++) {
+      transactions[i] = {
+        stockName: rows[i]["name"],
+        count: rows[i]["count"],
+        date: rows[i]["date"],
+        value: rows[i]["value"],
+        type: rows[i]["type"]
+      }
+    }
+    console.log('transactions: ', transactions);
+  });
+
+  connection.end();
+
+
+
+
+
   var transacton = {
     stockName: "MSFT",
     count: 10,
@@ -85,6 +118,30 @@ app.get("/stocks/transactions/:uid", (req, res) => {
 //   etc...
 // }
 app.get("/stocks/holdings/:uid", (req, res) => {
+  const {uid} =  req.params
+  var mysql      = require('mysql');
+  var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : 'iePohthad3',
+    database : 'comicsans'
+  });
+
+  connection.connect();
+
+  connection.query('SELECT * FROM `holdings` WHERE `userId` = ?', [uid], function (error, results, fields) {
+    if (err) throw err;
+    var history = [];
+    console.log('History: ', rows);
+  });
+
+  connection.end();
+
+
+
+
+
+
 var stocks = {
   MSFT: 100,
   AAPL: 22,
@@ -99,7 +156,101 @@ grab shit from database
 get funds
 */
 app.get("/stocks/wallet/:uid", (req, res) => {
-  res.send("1000");
+  const {uid} =  req.params
+  var mysql      = require('mysql');
+  var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : 'iePohthad3',
+    database : 'comicsans'
+  });
+
+  connection.connect();
+
+  connection.query('SELECT * FROM `users` WHERE `userId` = ?', [uid], function (error, results, fields) {
+    if (err) throw err;
+    //res.send(rows[0].solution);
+    console.log('funds: ', rows[0].funds);
+  });
+
+  connection.end();
+});
+
+app.get("/stocks/wallet/write/:uid/:funds", (req, res) => {
+  const {uid, funds} = req.params;
+
+  var mysql      = require('mysql');
+  var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : 'iePohthad3',
+    database : 'comicsans'
+  });
+
+  connection.connect();
+
+  connection.query('UPDATE `users` SET 'funds' ? WHERE `userId` = ?', [funds, uid], function(err, rows, fields) {
+    if (err) throw err;
+
+    console.log('The solution is: ', rows[0].solution);
+  });
+
+  connection.end();
+
+});
+
+app.get("/stocks/holdings/write/:uid/:holdings", (req, res) => {
+  const {uid, holdings} = req.params;
+
+  var mysql      = require('mysql');
+  var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : 'iePohthad3',
+    database : 'comicsans'
+  });
+
+  // CHECK IF THEY DO OR DONT HAVE THE STOCK
+  connection.connect();
+  for (i = 0; i < holdings.length; i++) {
+    connection.query('UPDATE `holdings` SET `stockName` ?, `count` ? WHERE `userId` = ?', [Object.keys(holdings)[i], Object.values(holdings)[i], uid], function(err, rows, fields) {
+      if (err) throw err;
+    });
+  }
+
+
+  connection.end();
+
+
+  res.send(true);
+});
+
+app.get("/stocks/transactions/write/:uid/:transactions", (req, res) => {
+  const {uid, transactions} = req.params;
+
+  var mysql      = require('mysql');
+  var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : 'iePohthad3',
+    database : 'comicsans'
+  });
+
+  connection.connect();
+
+  for (i = 0; i < holdings.length; i++) {
+    connection.query('INSERT INTO `transactions` VALUES (?, ?, ?,  ?, ?, ?)',  [transactions[i]["stockName"], transactions[i]["value"], transactions[i]["date"],
+        transactions[i]["userId"], transactions[i]["count"], transactions[i]["type"]], function(err, rows, fields) {
+      if (err) throw err;
+
+      console.log('The solution is: ', rows[0].solution);
+    });
+  }
+
+  connection.end();
+
+
+  res.send(true);
 });
 
 app.get("/stocks/stockChart/:params", (req, res) => {
