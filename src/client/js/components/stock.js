@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import request from 'ajax-request';
 import { browserHistory } from 'react-router';
 import { Paper, CardTitle, CardText, FontIcon, FlatButton } from 'material-ui';
-import StockHolding, {getStockHoldings} from './stockholdings';
+import { StockHolding, getStockHoldings } from './stockholdings';
 
 export class StockPeek extends Component {
   constructor(props) {
@@ -15,12 +15,21 @@ export class StockPeek extends Component {
   componentDidMount() {
     //Not sure how we're going to pass the stock info here
     var uID = 0; //get this somehow
-    const stockHoldings = getStockHoldings(uID); //this makes some async calls so we need to wait on it
-    var stocks = stockHoldings.getStocks();
-    var nseArray = this.shuffle(Object.keys(stocks));
-    for (var i = 0; i < 5; i++) {
-        this.makeRequest(nseArray[i]);
-    }
+    request({
+          url: `stock/holdings/${uID}`,
+          method: 'GET',
+          headers: {
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }, (error, response, body) => {
+          const stockHolding = new StockHolding(uID, body);
+          var stocks = stockHolding.getStocks();
+          var nseArray = Object.keys(JSON.parse(stocks));
+          for (var i = 0; i < nseArray.length || i < 4; i++) {
+            console.log(i);
+              this.makeRequest(nseArray[i]);
+          }
+    });
   }
 
   shuffle(array) {
