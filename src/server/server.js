@@ -80,7 +80,7 @@ app.get("/stocks/transactions/:uid", (req, res) => {
     if (err) throw err;
     //res.send(rows[0].solution);
     var transactions = [];
-    for (i = 0; i < rows.length; i++) {
+    for (var i = 0; i < rows.length; i++) {
       transactions[i] = {
         stockName: rows[i]["name"],
         count: rows[i]["count"],
@@ -212,7 +212,7 @@ app.get("/stocks/holdings/write/:uid/:holdings", (req, res) => {
 
   // CHECK IF THEY DO OR DONT HAVE THE STOCK
   connection.connect();
-  for (i = 0; i < holdings.length; i++) {
+  for (var i = 0; i < holdings.length; i++) {
     connection.query('UPDATE `holdings` SET `stockName` ?, `count` ? WHERE `userId` = ?', [Object.keys(holdings)[i], Object.values(holdings)[i], uid], function(err, rows, fields) {
       if (err) throw err;
     });
@@ -238,7 +238,7 @@ app.get("/stocks/transactions/write/:uid/:transactions", (req, res) => {
 
   connection.connect();
 
-  for (i = 0; i < holdings.length; i++) {
+  for (var i = 0; i < holdings.length; i++) {
     connection.query('INSERT INTO `transactions` VALUES (?, ?, ?,  ?, ?, ?)',  [transactions[i]["stockName"], transactions[i]["value"], transactions[i]["date"],
         transactions[i]["userId"], transactions[i]["count"], transactions[i]["type"]], function(err, rows, fields) {
       if (err) throw err;
