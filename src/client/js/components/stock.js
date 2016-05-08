@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import request from 'ajax-request';
 import { browserHistory } from 'react-router';
 import { Paper, CardTitle, CardText, FontIcon, FlatButton } from 'material-ui';
+import { StockHolding, getStockHoldings } from './stockholdings';
 
 export class StockPeek extends Component {
   constructor(props) {
@@ -13,10 +14,36 @@ export class StockPeek extends Component {
 
   componentDidMount() {
     //Not sure how we're going to pass the stock info here
-    var nseArray = ["GOOG", "AAPL", "YHOO", "AMZN", "MSFT"];
-    for (var i = 0; i < nseArray.length; i++) {
-        this.makeRequest(nseArray[i]);
+    var uID = 1; //get this somehow
+    request({
+          url: `stocks/holdings/${uID}`,
+          method: 'GET',
+          headers: {
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }, (error, response, body) => {
+          const stockHolding = new StockHolding(uID, body);
+          var stocks = stockHolding.getStocks();
+          var nseArray = JSON.parse(stocks);
+          for (var i = 0; i < nseArray.length || i < 4; i++) {
+            console.log(i);
+              this.makeRequest(nseArray[i]["stockName"]);
+          }
+    });
+  }
+
+  shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
     }
+
+    return array;
   }
 
   makeRequest(nse) {
