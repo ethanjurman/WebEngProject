@@ -28,6 +28,8 @@ export default class StockGraphComponent extends Component {
     getWallet(0, this.updateWallet.bind(this));
     getTransactionHistory(0, this.updateTransactionHistory.bind(this));
     getStockHoldings(0, this.updateStockHoldings.bind(this));
+    ga('set', 'page', '/stock');
+    ga('send', 'pageview');
   }
 
   generateParams(symbol){
