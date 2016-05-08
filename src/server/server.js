@@ -136,7 +136,7 @@ app.get("/stocks/holdings/:uid", (req, res) => {
 
     for(var i = 0; i < rows.legnth; i++) {
       var h = [
-          rows[i].stockName: rows[i].amount;
+          rows[i].stockName: rows[i].amount
       ];
       holdings.push(h);
     }
