@@ -77,7 +77,7 @@ app.get("/stocks/transactions/:uid", (req, res) => {
       }
     }
     console.log('transactions: ', transactions);
-    res.send(transhistory);
+    res.send(transactions);
   });
 
   connection.end();
