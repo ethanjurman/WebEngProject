@@ -209,8 +209,8 @@ export default class StockGraphComponent extends Component {
   }
 
   doesOwn(){
-    return Object.keys(this.state.stockHoldings.stocks).find((stock)=>{
-      return stock == this.state.symbol;
+    return this.state.stockHoldings.stocks.find((stock)=>{
+      return stock.stockName == this.state.symbol;
     });
   }
 
