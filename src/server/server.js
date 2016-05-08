@@ -76,7 +76,7 @@ app.get("/stocks/transactions/:uid", (req, res) => {
 
 
   connection.connect();
-  connection.query('SELECT * FROM `transactions` WHERE `userId` = ?', [uid], function (error, results, fields) {
+  connection.query('SELECT * FROM `transactions` WHERE `userId` = ?', [uid], function (err, results, fields) {
     if (err) throw err;
     //res.send(rows[0].solution);
     var transactions = [];
