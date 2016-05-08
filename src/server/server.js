@@ -189,7 +189,7 @@ app.get("/stocks/wallet/write/:uid/:funds", (req, res) => {
 
   connection.connect();
 
-  connection.query('UPDATE `users` SET 'funds' ? WHERE `userId` = ?', [funds, uid], function(err, rows, fields) {
+  connection.query('UPDATE `users` SET `funds` ? WHERE `userId` = ?', [funds, uid], function(err, rows, fields) {
     if (err) throw err;
 
     console.log('The solution is: ', rows[0].solution);
