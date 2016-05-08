@@ -6,11 +6,7 @@ export class StockHolding {
     this.stocks = stocks;
   }
 
-  get uID() {
-    return this.uID;
-  }
-
-  get stocks() {
+  getStocks() {
     return this.stocks;
   }
 
@@ -41,7 +37,6 @@ export class StockHolding {
 }
 
 export function getStockHoldings(uID) {
-  var stocks = null;
   request({
         url: `stock/holdings/${uID}`,
         method: 'GET',
@@ -49,8 +44,7 @@ export function getStockHoldings(uID) {
           'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
         }
       }, (error, response, body) => {
-        stocks = body;
+        const stockHolding = new StockHolding(uID, body);
+        return stockHolding;
   });
-  const stockHolding = new StockHolding(uID, stocks);
-  return stockHolding;
 }

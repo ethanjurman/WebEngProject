@@ -8,14 +8,6 @@ export class TransactionHistory {
     this.transHistory = transHistory;
   }
 
-  get uID() {
-    return this.uID;
-  }
-
-  get transHistory() {
-    return this.transHistory;
-  }
-
   addTransaction(stockName, count, type, value) {
     var successfulTransaction = updateWallet(this.uID, type, value) && updateStockCount(uID, type, count, stockName);
 

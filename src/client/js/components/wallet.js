@@ -6,14 +6,6 @@ export class Wallet {
     this.funds = funds;
   }
 
-  get uID() {
-    return this.uID;
-  }
-
-  get funds() {
-    return this.funds;
-  }
-
   addFunds(funds) {
     this.funds += funds;
     writeToDB();

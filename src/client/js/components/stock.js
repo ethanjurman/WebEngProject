@@ -17,7 +17,7 @@ export class StockPeek extends Component {
     var uID = 0; //get this somehow
     const stockHoldings = getStockHoldings(uID);
     var stocks = stockHoldings.getStocks();
-    var nseArray = shuffle(Object.keys(stocks));
+    var nseArray = this.shuffle(Object.keys(stocks));
     for (var i = 0; i < 5; i++) {
         this.makeRequest(nseArray[i]);
     }
