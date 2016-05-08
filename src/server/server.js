@@ -169,7 +169,7 @@ app.get("/stocks/wallet/:uid", (req, res) => {
 
   connection.query('SELECT * FROM `users` WHERE `userId` = ?', [uid], function (err, rows, fields) {
     if (err) throw err;
-    res.send(rows[0].funds);
+    res.send(rows[0].funds.toString());
     console.log('funds: ', rows[0].funds);
   });
 
