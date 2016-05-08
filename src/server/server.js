@@ -135,14 +135,16 @@ app.get("/stocks/holdings/:uid", (req, res) => {
     var holdings = [];
 
     for(var i = 0; i < rows.legnth; i++) {
-      var h = {
+      var item = {
           "stockName": rows[i].stockName,
           "amount": rows[i].amount
       };
-      holdings.push(h);
+      holdings.push(item);
     }
 
     res.send(holdings);
+    console.log('Rows: ', rows);
+    console.log('Row TEST: ', rows[0].stockName);
     console.log('History: ', holdings);
   });
 
