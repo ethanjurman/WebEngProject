@@ -4,6 +4,7 @@ import { Paper, TextField, RaisedButton } from 'material-ui';
 import { Wallet, getWallet } from './wallet';
 import { TransactionHistory, getTransactionHistory } from './transactionhistory';
 import { StockHolding, getStockHoldings } from './stockholdings';
+import { TransactionTable } from './transactionTable';
 
 var Highstock = require('react-highstock');
 
@@ -209,6 +210,7 @@ export default class StockGraphComponent extends Component {
   }
 
   doesOwn(){
+    // find doesn't work on all browsers
     return Object.keys(this.state.stockHoldings.stocks).find((stock)=>{
       return stock == this.state.symbol;
     });
@@ -241,12 +243,13 @@ export default class StockGraphComponent extends Component {
     }
     // does user have stuff
     let buysell = this.doesOwn() ? "SELL" : "BUY";
-    console.log(this.state.transactionHistory);
-    console.log(this.state.stockHoldings);
+    let transactionHistory = this.state.transactionHistory;
     return (
       <Paper style={{margin:'10px',padding:'10px'}}>
         FUNDS: { this.state.wallet.getFunds() }
-        { /* TRANSACTION HISTORY INFORMATION */ }
+        <TransactionTable
+          transactionHistory={transactionHistory}
+        />
         <br />
         <TextField
           hintText="Search"
