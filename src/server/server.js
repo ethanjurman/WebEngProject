@@ -90,6 +90,7 @@ app.get("/stocks/transactions/:uid", (req, res) => {
       }
     }
     console.log('transactions: ', transactions);
+    res.send(transhistory);
   });
 
   connection.end();
@@ -107,7 +108,7 @@ app.get("/stocks/transactions/:uid", (req, res) => {
   };
   var transhistory = [];
   transhistory[0] = transacton;
-  res.send(transhistory);
+  // res.send(transhistory);
 });
 
 // I'm no JS wizard but what we want to do is dybamically create a
@@ -131,8 +132,17 @@ app.get("/stocks/holdings/:uid", (req, res) => {
 
   connection.query('SELECT * FROM `holdings` WHERE `userId` = ?', [uid], function (err, rows, fields) {
     if (err) throw err;
-    var history = [];
-    console.log('History: ', rows);
+    var holdings = [];
+
+    for(var i = 0; i < rows.legnth; i++) {
+      var h = [
+          rows[i].stockName: rows[i].amount;
+      ];
+      holdings.push(h);
+    }
+
+    res.send(holdings);
+    console.log('History: ', holdings);
   });
 
   connection.end();
@@ -148,7 +158,7 @@ var stocks = {
   AMZN: 402320,
   TWTR: 1
 }
-res.send(stocks);
+// res.send(stocks);
 });
 
 /*
