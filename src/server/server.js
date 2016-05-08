@@ -134,7 +134,7 @@ app.get("/stocks/holdings/:uid", (req, res) => {
     if (err) throw err;
     var holdings = [];
 
-    for(var i = 0; i < rows.legnth; i++) {
+    for(var i = 0; i < rows.length; i++) {
       var item = {
           "stockName": rows[i].stockName,
           "amount": rows[i].amount
