@@ -12,10 +12,10 @@ app.use(cors());
 app.use(express.static(__dirname + '/client'));
 
 // make api request from server
-app.get("/weather/:lat/:lng", (req, res) => {
-  const {lat, lng} = req.params;
+app.get("/weather/:zip", (req, res) => {
+  const {zip} = req.params;
   request({
-    url: getWeatherUrl(lat, lng),
+    url: getWeatherUrl(zip),
     method: 'GET',
     headers: {
       'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
