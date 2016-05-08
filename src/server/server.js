@@ -74,7 +74,7 @@ app.get("/stocks/transactions/:uid", (req, res) => {
         date: rows[i]["date"],
         value: rows[i]["value"],
         type: rows[i]["type"]
-      }
+      };
     }
     console.log('transactions: ', transactions);
     res.send(transactions);
