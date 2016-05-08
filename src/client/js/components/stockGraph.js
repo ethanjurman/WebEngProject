@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import request from 'ajax-request';
-import { Paper } from 'material-ui';
+import { Paper, TextField, RaisedButton } from 'material-ui';
 import { Wallet, getWallet } from './wallet';
+import { TransactionHistory, getTransactionHistory } from './transactionhistory';
+import { StockHolding, getStockHoldings } from './stockholdings';
 
 var Highstock = require('react-highstock');
 
@@ -10,14 +12,20 @@ export default class StockGraphComponent extends Component {
     super(props);
     this.state = {
       stockData: null,
-      wallet: null
+      wallet: null,
+      transactionHistory: null,
+      symbol: null,
+      stockHoldings: null
     }
   }
 
   componentDidMount() {
     //Not sure how we're going to pass the stock info here
     this.makeRequest(this.generateParams(this.props.params.symbol));
+    this.updateSymbol(this.props.params.symbol);
     getWallet(0, this.updateWallet.bind(this));
+    getTransactionHistory(0, this.updateTransactionHistory.bind(this));
+    getStockHoldings(0, this.updateStockHoldings.bind(this));
   }
 
   generateParams(symbol){
@@ -166,13 +174,61 @@ export default class StockGraphComponent extends Component {
     });
   }
 
+  updateTransactionHistory(transactionHistory) {
+    this.setState({
+      transactionHistory
+    });
+  }
+
+  updateSearch(event) {
+    this.updateSymbol(event.target.value);
+  };
+
+  updateSymbol(symbol) {
+    this.setState({
+      symbol
+    });
+  }
+
+  keyPress(event) {
+    if (event.keyCode == 13) {
+      this.updateSymbol(event.target.value);
+      this.makeRequest(this.generateParams(event.target.value));
+    }
+  }
+
+  updateStockHoldings(stockHoldings){
+    this.setState({
+      stockHoldings
+    });
+  }
+
+  doesOwn(){
+    return Object.keys(this.state.stockHoldings.stocks).find((stock)=>{
+      return stock == this.state.symbol;
+    });
+  }
+
   render() {
     if ( !this.state.stockData ) {
       return (<div>Creating graph...</div>);
     }
+    // does user have stuff
+    let buysell = this.doesOwn() ? "SELL" : "BUY";
+    console.log(this.state.transactionHistory);
+    console.log(this.state.stockHoldings);
     return (
       <Paper style={{margin:'10px',padding:'10px'}}>
         FUNDS: { this.state.wallet.getFunds() }
+        { /* TRANSACTION HISTORY INFORMATION */ }
+        <br />
+        <TextField
+          hintText="Search"
+          onBlur={this.updateSearch.bind(this)}
+          onKeyDown={this.keyPress.bind(this)}
+        />
+        <br />
+        <RaisedButton label={buysell} />
         {<Highstock config = {this.state.stockData}></Highstock>}
       </Paper>
     )

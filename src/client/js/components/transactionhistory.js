@@ -70,27 +70,16 @@ export class TransactionHistory {
   }
 }
 
-export function getTransactionHistory(uID) {
+export function getTransactionHistory(uID, callback) {
   request({
-        url: `stock/transactions/${uID}`,
+        url: `transactions/${uID}`,
         method: 'GET',
         headers: {
           'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
         }
       }, (error, response, body) => {
-        var transHistory = body;
-        var transactions = [];
-        for (var i = 0; i < transHistory.length; i++) {
-            var transaction = {
-              stockName: transHistory[i]['stockName'],
-              count: transHistory[i]['count'],
-              date: transHistory[i]['date'],
-              value: transHistory[i]['value'],
-              type: transHistory[i]['type']
-            }
-            transactions.push(transaction);
-        }
-        const history = new TransactionHistory(uID, transactions);
-        return history;
-  });
+        var transHistory = JSON.parse(body);
+        const history = new TransactionHistory(uID, transHistory);
+        callback(history);
+      });
 }

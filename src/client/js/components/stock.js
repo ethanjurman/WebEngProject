@@ -16,7 +16,7 @@ export class StockPeek extends Component {
     //Not sure how we're going to pass the stock info here
     var uID = 0; //get this somehow
     request({
-          url: `stock/holdings/${uID}`,
+          url: `stocks/holdings/${uID}`,
           method: 'GET',
           headers: {
             'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'

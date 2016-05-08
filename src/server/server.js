@@ -51,7 +51,7 @@ transhistory[0] = {
   type: type
 }
 */
-app.get("/stock/transactions/:uid", (req, res) => {
+app.get("/stocks/transactions/:uid", (req, res) => {
   var transacton = {
     stockName: "MSFT",
     count: 10,
@@ -71,7 +71,7 @@ app.get("/stock/transactions/:uid", (req, res) => {
 //   stockName1: count,
 //   etc...
 // }
-app.get("/stock/holdings/:uid", (req, res) => {
+app.get("/stocks/holdings/:uid", (req, res) => {
 var stocks = {
   MSFT: 100,
   AAPL: 22,
@@ -98,9 +98,9 @@ app.get("/stocks/stockChart/:params", (req, res) => {
   });
 });
 
-// app.use((req, res, next)=>{
-//   res.redirect('/');
-// });
+app.use((req, res, next)=>{
+  res.redirect('/');
+});
 
 
 app.listen(3000, ()=>{

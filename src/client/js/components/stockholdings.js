@@ -36,15 +36,15 @@ export class StockHolding {
   }
 }
 
-export function getStockHoldings(uID) {
+export function getStockHoldings(uID, callback) {
   request({
-        url: `stock/holdings/${uID}`,
+        url: `holdings/${uID}`,
         method: 'GET',
         headers: {
           'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
         }
       }, (error, response, body) => {
-        const stockHolding = new StockHolding(uID, body);
-        return stockHolding;
+        const stockHolding = new StockHolding(uID, JSON.parse(body));
+        callback(stockHolding);
   });
 }
