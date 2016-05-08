@@ -241,6 +241,7 @@ export default class StockGraphComponent extends Component {
     }
     // does user have stuff
     let buysell = this.doesOwn() ? "SELL" : "BUY";
+    console.log("TEST");
     console.log(this.state.transactionHistory);
     console.log(this.state.stockHoldings);
     return (
