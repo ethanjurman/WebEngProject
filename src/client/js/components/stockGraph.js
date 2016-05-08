@@ -25,9 +25,9 @@ export default class StockGraphComponent extends Component {
     //Not sure how we're going to pass the stock info here
     this.makeRequest(this.generateParams(this.props.params.symbol));
     this.updateSymbol(this.props.params.symbol);
-    getWallet(0, this.updateWallet.bind(this));
-    getTransactionHistory(0, this.updateTransactionHistory.bind(this));
-    getStockHoldings(0, this.updateStockHoldings.bind(this));
+    getWallet(1, this.updateWallet.bind(this));
+    getTransactionHistory(1, this.updateTransactionHistory.bind(this));
+    getStockHoldings(1, this.updateStockHoldings.bind(this));
     ga('set', 'page', '/stock');
     ga('send', 'pageview');
   }

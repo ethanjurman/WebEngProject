@@ -14,7 +14,7 @@ export class StockPeek extends Component {
 
   componentDidMount() {
     //Not sure how we're going to pass the stock info here
-    var uID = 0; //get this somehow
+    var uID = 1; //get this somehow
     request({
           url: `stocks/holdings/${uID}`,
           method: 'GET',
