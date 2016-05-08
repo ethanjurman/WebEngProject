@@ -76,7 +76,7 @@ app.get("/stocks/transactions/:uid", (req, res) => {
 
 
   connection.connect();
-  connection.query('SELECT * FROM `transactions` WHERE `userId` = ?', [uid], function (err, results, fields) {
+  connection.query('SELECT * FROM `transactions` WHERE `userId` = ?', [uid], function (err, rows, fields) {
     if (err) throw err;
     //res.send(rows[0].solution);
     var transactions = [];
@@ -129,7 +129,7 @@ app.get("/stocks/holdings/:uid", (req, res) => {
 
   connection.connect();
 
-  connection.query('SELECT * FROM `holdings` WHERE `userId` = ?', [uid], function (err, results, fields) {
+  connection.query('SELECT * FROM `holdings` WHERE `userId` = ?', [uid], function (err, rows, fields) {
     if (err) throw err;
     var history = [];
     console.log('History: ', rows);
@@ -167,7 +167,7 @@ app.get("/stocks/wallet/:uid", (req, res) => {
 
   connection.connect();
 
-  connection.query('SELECT * FROM `users` WHERE `userId` = ?', [uid], function (err, results, fields) {
+  connection.query('SELECT * FROM `users` WHERE `userId` = ?', [uid], function (err, rows, fields) {
     if (err) throw err;
     //res.send(rows[0].solution);
     console.log('funds: ', rows[0].funds);
