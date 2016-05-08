@@ -15,7 +15,9 @@ export default class StockGraphComponent extends Component {
       wallet: null,
       transactionHistory: null,
       symbol: null,
-      stockHoldings: null
+      stockHoldings: null,
+      value: null,
+      calcAmount: null
     }
   }
 
@@ -185,6 +187,7 @@ export default class StockGraphComponent extends Component {
   };
 
   updateSymbol(symbol) {
+    this.getStockPrice(symbol);
     this.setState({
       symbol
     });
@@ -209,6 +212,27 @@ export default class StockGraphComponent extends Component {
     });
   }
 
+  getStockPrice(nse) {
+    request({
+          url: `${nse}`,
+          method: 'GET',
+          headers: {
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }, (error, response, body) => {
+          const stockJson = JSON.parse(body);
+          this.setState({
+            value:stockJson.LastPrice
+          })
+        });
+  }
+
+  updateAmount(event){
+    this.setState({
+      calcAmount: parseInt(event.target.value) * this.state.value
+    })
+  }
+
   render() {
     if ( !this.state.stockData ) {
       return (<div>Creating graph...</div>);
@@ -229,6 +253,15 @@ export default class StockGraphComponent extends Component {
         />
         <br />
         <RaisedButton label={buysell} />
+        <TextField
+          hintText="Amount"
+          onChange={this.updateAmount.bind(this)}
+        />
+        <TextField
+          hintText=""
+          disabled={true}
+          value={this.state.calcAmount}
+        />
         {<Highstock config = {this.state.stockData}></Highstock>}
       </Paper>
     )

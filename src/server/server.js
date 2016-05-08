@@ -38,6 +38,19 @@ app.get("/stock/:nse", (req, res) => {
   });
 });
 
+app.get("/stocks/:nse", (req, res) => {
+  const {nse} = req.params;
+  request({
+    url: getStockUrl(nse),
+    method: 'GET',
+    headers: {
+      'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+    }
+  }, (error, response, body) => {
+    res.send(body);
+  });
+});
+
 
 /*
 grab shit from database
