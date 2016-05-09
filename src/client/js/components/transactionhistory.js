@@ -15,7 +15,7 @@ export class TransactionHistory {
     //   return false;
     // }
 
-    var currentDate = getToday();
+    var currentDate = this.getToday();
     var transaction = {
       stockName: stockName,
       count: count,
