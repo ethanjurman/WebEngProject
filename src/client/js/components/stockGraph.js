@@ -265,6 +265,9 @@ export default class StockGraphComponent extends Component {
          this.state.calcAmount
        );
      }
+     setTimeout(()=>{
+       this.forceUpdate();
+     }, 1000)
   }
 
   render() {
