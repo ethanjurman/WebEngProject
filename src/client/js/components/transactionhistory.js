@@ -25,7 +25,7 @@ export class TransactionHistory {
     }
 
     this.transHistory.push(transaction);
-    this.writeToDB();
+    // this.writeToDB();
     return true;
   }
 

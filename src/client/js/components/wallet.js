@@ -8,12 +8,12 @@ export class Wallet {
 
   addFunds(funds) {
     this.funds += funds;
-    this.writeToDB();
+    // this.writeToDB();
   }
 
   removeFunds(funds) {
     this.funds -= funds;
-    this.writeToDB();
+    // this.writeToDB();
   }
 
   getFunds() {
