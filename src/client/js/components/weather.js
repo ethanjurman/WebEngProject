@@ -44,13 +44,6 @@ export class WeatherPeek extends Component {
       <Paper style={{margin:'10px'}}>
         <CardTitle style={{fontSize: '2.5em', float:'right'}}> {this.state.temp}°F </CardTitle>
         <CardTitle style={{fontSize: '2.5em'}}> {this.state.weather} </CardTitle>
-        <FlatButton
-          label="See Weather Details"
-          linkButton={true}
-          secondary={true}
-          onClick={()=>{}}
-          style={{float:'right'}}
-        />
         <CardText> from {this.state.name} </CardText>
         <TextField
             type="number"

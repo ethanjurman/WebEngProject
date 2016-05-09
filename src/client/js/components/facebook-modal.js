@@ -14,7 +14,7 @@ export class FacebookModal extends Component{
         this.handleClose = this.handleClose.bind(this);
 
         this.state = {
-            open: true,
+            open:  true,
             fbFeed: '',
             name: ''
         };
