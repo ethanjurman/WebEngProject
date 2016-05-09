@@ -9,8 +9,8 @@ fs.readFile(__dirname + '/weather-key', (err, data) => {
   weatherKey = data.toString().trim();
 });
 
-export function getWeatherUrl(lat, lng) {
-  return `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${weatherKey}`;
+export function getWeatherUrl(zip) {
+  return `http://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=${weatherKey}`;
 }
 
 export function getStockChartUrl(params) {
