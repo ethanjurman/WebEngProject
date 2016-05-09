@@ -253,7 +253,7 @@ export default class StockGraphComponent extends Component {
        this.state.transactionHistory.addTransaction(
          this.state.symbol,
          this.state.amount,
-         "BUY",
+         "SELL",
          this.state.calcAmount
        );
      } else {
@@ -261,7 +261,7 @@ export default class StockGraphComponent extends Component {
        this.state.transactionHistory.addTransaction(
          this.state.symbol,
          this.state.amount,
-         "SELL",
+         "BUY",
          this.state.calcAmount
        );
      }

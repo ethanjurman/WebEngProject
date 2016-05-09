@@ -7,12 +7,12 @@ export class Wallet {
   }
 
   addFunds(funds) {
-    this.funds += funds;
+    this.funds = parseInt(this.funds) + funds;
     // this.writeToDB();
   }
 
   removeFunds(funds) {
-    this.funds -= funds;
+    this.funds = parseInt(this.funds) - funds;
     // this.writeToDB();
   }
 
