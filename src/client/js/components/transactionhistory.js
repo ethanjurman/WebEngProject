@@ -9,7 +9,7 @@ export class TransactionHistory {
   }
 
   addTransaction(stockName, count, type, value) {
-    var successfulTransaction = updateWallet(this.uID, type, value) && updateStockCount(uID, type, count, stockName);
+    var successfulTransaction = this.updateWallet(this.uID, type, value) && this.updateStockCount(uID, type, count, stockName);
 
     if (!successfulTransaction) {
       return false;
