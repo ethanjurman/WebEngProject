@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import request from 'ajax-request';
 import { Paper, TextField, RaisedButton } from 'material-ui';
+import { StockHighGraph } from './stockHighGraph';
 import { Wallet, getWallet } from './wallet';
 import { TransactionHistory, getTransactionHistory } from './transactionhistory';
 import { StockHolding, getStockHoldings } from './stockholdings';
+import { TransactionTable } from './transactionTable';
 
-var Highstock = require('react-highstock');
+const buyingStyling = {
+  maxWidth: '30%',
+  padding: '4px',
+  margin: '4px'
+}
 
 export default class StockGraphComponent extends Component {
   constructor(props) {
@@ -17,6 +23,7 @@ export default class StockGraphComponent extends Component {
       symbol: null,
       stockHoldings: null,
       value: null,
+      amount: null,
       calcAmount: null
     }
   }
@@ -189,6 +196,7 @@ export default class StockGraphComponent extends Component {
   };
 
   updateSymbol(symbol) {
+    if (symbol == "") { return; }
     this.getStockPrice(symbol);
     this.setState({
       symbol
@@ -214,6 +222,12 @@ export default class StockGraphComponent extends Component {
     });
   }
 
+  updateValue(value){
+    this.setState({
+      value
+    });
+  }
+
   getStockPrice(nse) {
     request({
           url: `${nse}`,
@@ -222,17 +236,15 @@ export default class StockGraphComponent extends Component {
             'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
           }
         }, (error, response, body) => {
-          const stockJson = JSON.parse(body);
-          this.setState({
-            value:stockJson.LastPrice
-          })
+          this.updateValue(JSON.parse(body).LastPrice);
         });
   }
 
   updateAmount(event){
     this.setState({
+      amount: parseInt(event.target.value),
       calcAmount: parseInt(event.target.value) * this.state.value
-    })
+    });
   }
 
   render() {
@@ -241,31 +253,34 @@ export default class StockGraphComponent extends Component {
     }
     // does user have stuff
     let buysell = this.doesOwn() ? "SELL" : "BUY";
-    console.log("TEST");
-    console.log(this.state.transactionHistory);
-    console.log(this.state.stockHoldings);
+    let transactionHistory = this.state.transactionHistory;
     return (
       <Paper style={{margin:'10px',padding:'10px'}}>
         FUNDS: { this.state.wallet.getFunds() }
-        { /* TRANSACTION HISTORY INFORMATION */ }
+        <TransactionTable
+          transactionHistory={transactionHistory}/>
+
         <br />
         <TextField
           hintText="Search"
           onBlur={this.updateSearch.bind(this)}
-          onKeyDown={this.keyPress.bind(this)}
-        />
+          onKeyDown={this.keyPress.bind(this)}/>
         <br />
-        <RaisedButton label={buysell} />
+
         <TextField
+          style={buyingStyling}
           hintText="Amount"
-          onChange={this.updateAmount.bind(this)}
-        />
+          onChange={this.updateAmount.bind(this)}/>
         <TextField
-          hintText=""
+          style={buyingStyling}
+          hintText="calculated price"
           disabled={true}
-          value={this.state.calcAmount}
-        />
-        {<Highstock config = {this.state.stockData}></Highstock>}
+          value={`$ ${this.state.calcAmount}`}/>
+        <RaisedButton
+          style={buyingStyling}
+          label={buysell} />
+
+        <StockHighGraph symbol={this.state.symbol} config={this.state.stockData}/>
       </Paper>
     )
   }
