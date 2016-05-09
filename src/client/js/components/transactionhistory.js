@@ -9,11 +9,11 @@ export class TransactionHistory {
   }
 
   addTransaction(stockName, count, type, value) {
-    var successfulTransaction = this.updateWallet(this.uID, type, value) && this.updateStockCount(uID, type, count, stockName);
-
-    if (!successfulTransaction) {
-      return false;
-    }
+    // var successfulTransaction = this.updateWallet(this.uID, type, value) && this.updateStockCount(uID, type, count, stockName);
+    //
+    // if (!successfulTransaction) {
+    //   return false;
+    // }
 
     var currentDate = getToday();
     var transaction = {
