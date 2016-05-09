@@ -247,6 +247,26 @@ export default class StockGraphComponent extends Component {
     });
   }
 
+  buysellAction(){
+     if(this.doesOwn()){
+       this.state.wallet.addFunds(this.state.calcAmount);
+       this.state.transactionHistory.addTransaction(
+         this.state.symbol,
+         this.state.amount,
+         "ADD",
+         this.state.calcAmount
+       );
+     } else {
+       this.state.wallet.removeFunds(this.state.calcAmount);
+       this.state.transactionHistory.addTransaction(
+         this.state.symbol,
+         this.state.amount,
+         "REMOVE",
+         this.state.calcAmount
+       );
+     }
+  }
+
   render() {
     if ( !this.state.stockData ) {
       return (<div>Creating graph...</div>);
@@ -278,7 +298,8 @@ export default class StockGraphComponent extends Component {
           value={`$ ${this.state.calcAmount}`}/>
         <RaisedButton
           style={buyingStyling}
-          label={buysell} />
+          label={buysell}
+          onClick={this.buysellAction.bind(this)} />
 
         <StockHighGraph symbol={this.state.symbol} config={this.state.stockData}/>
       </Paper>
