@@ -31,7 +31,15 @@ export class StockHolding {
   }
 
   writeToDB() {
-    /* REPLACEME */
+    request({
+          url: `holdings/write/${this.uID}/${this.stocks}`,
+          method: 'GET',
+          headers: {
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }, (error, response, body) => {
+          //callback(body);
+    });
     return false;
   }
 }

@@ -14,7 +14,7 @@ export class StockPeek extends Component {
 
   componentDidMount() {
     //Not sure how we're going to pass the stock info here
-    var uID = 0; //get this somehow
+    var uID = 1; //get this somehow
     request({
           url: `stocks/holdings/${uID}`,
           method: 'GET',
@@ -24,10 +24,10 @@ export class StockPeek extends Component {
         }, (error, response, body) => {
           const stockHolding = new StockHolding(uID, body);
           var stocks = stockHolding.getStocks();
-          var nseArray = Object.keys(JSON.parse(stocks));
+          var nseArray = JSON.parse(stocks);
           for (var i = 0; i < nseArray.length || i < 4; i++) {
             console.log(i);
-              this.makeRequest(nseArray[i]);
+              this.makeRequest(nseArray[i]["stockName"]);
           }
     });
   }

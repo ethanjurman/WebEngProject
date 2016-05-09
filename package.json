@@ -25,6 +25,7 @@
     "material-ui": "^0.14.4",
     "mkdirp": "^0.5.1",
     "moment": "^2.13.0",
+    "mysql": "^2.10.2",
     "onchange": "^2.4.0",
     "react": "^0.14.8",
     "react-big-calendar": "^0.9.11",
@@ -33,12 +34,24 @@
     "react-router": "^2.4.0",
     "react-tap-event-plugin": "^0.2.2"
   },
+  "devDependencies": {
+    "jest-cli": "^12.0.2",
+    "react-addons-test-utils": "^0.14.0",
+    "babel-jest": "^9.0.0"
+  },
   "browserify": {
     "extension": [
       "js"
     ],
     "transform": [
       "babelify"
+    ]
+  },
+  "jest": {
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/react-dom",
+      "<rootDir>/node_modules/react-addons-test-utils"
     ]
   },
   "scripts": {
@@ -54,6 +67,7 @@
     "build": "npm run build:server & npm run build:client",
     "preserver": "npm run build",
     "server": "node dist/server.js",
+    "test": "jest",
     "watch": "npm run build:client & onchange \"src/client/**/*\" -- npm run build:client"
   }
 }

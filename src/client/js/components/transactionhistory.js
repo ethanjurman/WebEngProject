@@ -65,7 +65,15 @@ export class TransactionHistory {
   }
 
   writeToDB() {
-    /* REPLACEME */
+    request({
+          url: `transactions/write/${this.uID}/${this.transHistory}`,
+          method: 'GET',
+          headers: {
+            'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'
+          }
+        }, (error, response, body) => {
+          //IDK
+        });
     return false;
   }
 }
